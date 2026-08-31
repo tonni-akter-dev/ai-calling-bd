@@ -463,7 +463,7 @@ export default function PricingPage() {
             Ready to Upgrade Your Communication?
           </h2>
           <p className="text-slate-400 text-sm max-w-xl mx-auto mb-8">
-            Join hundreds of growing businesses across Bangladesh using CallFlow
+            Join hundreds of growing businesses across Bangladesh using AI CALL BD
             for clear and reliable voice connections.
           </p>
 

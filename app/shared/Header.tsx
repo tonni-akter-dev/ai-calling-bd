@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Menu, X, PhoneCall, ChevronDown, ArrowRight } from "lucide-react";
+import { Menu, X, PhoneCall, ArrowRight } from "lucide-react";
 
 const navItems = [
   { name: "Home", href: "/" },
@@ -30,7 +30,7 @@ export default function Header() {
 
           <div>
             <h2 className="text-xl font-extrabold tracking-tight text-slate-900">
-              CALL<span className="text-blue-600">FLOW</span>
+             <span className="text-blue-600"> AI CALL</span>  BD 
             </h2>
 
             <p className="text-[10px] font-medium tracking-[0.18em] text-slate-400">
@@ -54,18 +54,13 @@ export default function Header() {
 
         {/* Portal Button */}
         <div className="hidden items-center gap-3 md:flex">
-          <Link
-            href="/login"
-            className="rounded-xl border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-600"
-          >
-            Sign In
-          </Link>
+    
 
           <Link
-            href="/register"
+            href="/login"
             className="group flex items-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/20 transition hover:bg-blue-700 hover:shadow-blue-600/30"
           >
-            Get Started
+             Portal Login
             <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
           </Link>
         </div>

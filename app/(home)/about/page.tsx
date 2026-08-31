@@ -29,10 +29,10 @@ export default function AboutPage() {
 
         <div className="relative z-10 max-w-4xl mx-auto px-4">
           <span className="text-xs font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 px-4 py-1.5 rounded-full border border-blue-800/60 inline-block mb-4">
-            About CallFlow
+            About AI CALL BD
           </span>
           <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4">
-            About CallFlow
+            About AI CALL BD
           </h1>
           <p className="text-slate-400 text-base md:text-lg max-w-2xl mx-auto font-normal">
             14+ years of simplifying business communication for enterprise
@@ -57,7 +57,7 @@ export default function AboutPage() {
               Redefining Business <br /> Communication.
             </h2>
             <p className="text-slate-600 text-sm md:text-base leading-relaxed">
-              For over a decade, CallFlow has been at the forefront of digital
+              For over a decade, AI CALL BD has been at the forefront of digital
               voice innovation. We empower modern businesses with reliable,
               scalable, and cost-effective IP TSP telephony solutions. Built on
               a low-latency infrastructure with unmatched customer support, we
@@ -120,12 +120,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. What You Get With CallFlow */}
+      {/* 3. What You Get With AI CALL BD */}
       <section className="py-20 bg-slate-50/50">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
-              What You Get with CallFlow
+              What You Get with AI CALL BD
             </h2>
             <p className="text-slate-500 text-sm md:text-base mt-3">
               Affordable rates, powerful features, and zero hassle — everything
@@ -220,12 +220,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 4. Why Choose CallFlow */}
+      {/* 4. Why Choose AI CALL BD */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4">
           <div className="text-center max-w-2xl mx-auto mb-16">
             <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
-              Why Choose CallFlow?
+              Why Choose AI CALL BD?
             </h2>
             <p className="text-slate-500 text-sm md:text-base mt-3">
               Here's why hundreds of companies trust us for their daily
@@ -244,7 +244,7 @@ export default function AboutPage() {
                   14 Years of Experience
                 </h3>
                 <p className="text-slate-400 text-xs md:text-sm leading-relaxed">
-                  CallFlow has been in the industry for over 14 years. We
+                  AI CALL BD has been in the industry for over 14 years. We
                   understand how enterprise voice systems work best.
                 </p>
               </div>

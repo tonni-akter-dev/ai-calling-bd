@@ -3,7 +3,7 @@ import "./globals.css";
 import React from "react";
 
 export const metadata = {
-  title: "IPCallBD - Business Communication Solutions",
+  title: "  AI Call BD - Business Communication Solutions",
   description: "Cloud PBX, IP Numbers, and VoIP Solutions in Bangladesh",
 };
 

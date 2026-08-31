@@ -11,7 +11,7 @@ export const WhyUsSection: React.FC = () => {
             The Premier Choice
           </span>
           <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mt-4 tracking-tight">
-            Why Leaders Switch to CallFlow
+            Why Leaders Switch to AI CALL BD
           </h2>
           <p className="text-slate-500 mt-3 text-base">
             We deliver enterprise-grade reliability, backed by low-latency infrastructure and intuitive management tools.

@@ -13,7 +13,7 @@ export const Footer: React.FC = () => {
               C
             </div>
             <span className="text-xl font-extrabold text-slate-900 tracking-tight">
-              CALLFLOW
+              AI CALL BD
             </span>
           </div>
           <p className="text-xs leading-relaxed text-slate-500">
@@ -58,7 +58,7 @@ export const Footer: React.FC = () => {
           </p>
           <p className="flex items-center text-slate-700">
             <Mail className="w-4 h-4 mr-2.5 text-blue-600 shrink-0" />
-            <span>support@callflow.com</span>
+            <span>support@AI CALL BD.com</span>
           </p>
           <p className="flex items-start text-slate-700">
             <MapPin className="w-4 h-4 mr-2.5 text-blue-600 shrink-0 mt-0.5" />
@@ -66,14 +66,14 @@ export const Footer: React.FC = () => {
           </p>
           <p className="flex items-center text-slate-700">
             <Globe className="w-4 h-4 mr-2.5 text-blue-600 shrink-0" />
-            <span>www.callflow.com</span>
+            <span>www.AI CALL BD.com</span>
           </p>
         </div>
       </div>
 
       {/* Bottom Bar */}
       <div className="max-w-6xl mx-auto px-4 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
-        <p>© {new Date().getFullYear()} CallFlow IPTSP. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} AI CALL BD IPTSP. All rights reserved.</p>
 
         {/* Payment Badges */}
         <div className="flex items-center space-x-2 bg-white px-4 py-2 rounded-full border border-slate-200 shadow-xs">

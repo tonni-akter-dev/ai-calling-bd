@@ -13,7 +13,7 @@ const Compatible = () => {
             Compatible VoIP Softphones
           </h2>
           <p className="text-slate-500 text-xs md:text-sm max-w-xl mx-auto mb-10">
-            Configure your CallFlow account with standard SIP clients. We highly recommend Zoiper for the best calling experience.
+            Configure your AI CALL BD account with standard SIP clients. We highly recommend Zoiper for the best calling experience.
           </p>
 
           <div className="grid md:grid-cols-2 gap-6 text-left">

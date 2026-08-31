@@ -12,7 +12,7 @@ export const CtaSection: React.FC = () => {
                 Ready to Get Started?
               </h2>
               <p className="text-slate-400 max-w-xl mx-auto mb-8 text-sm md:text-base leading-relaxed">
-                Elevate your cloud phone system with CallFlow. Dedicated setup in less than 24 hours.
+                Elevate your cloud phone system with AI CALL BD. Dedicated setup in less than 24 hours.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
