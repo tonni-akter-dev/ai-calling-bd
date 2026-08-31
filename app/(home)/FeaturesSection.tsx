@@ -1,5 +1,6 @@
 import React from "react";
 import { PhoneCall, Cloud, Disc } from "lucide-react";
+import Link from "next/link";
 
 interface Feature {
   icon: React.ReactNode;
@@ -52,12 +53,12 @@ export const FeaturesSection: React.FC = () => {
               </div>
               <h3 className="text-xl font-bold text-slate-800 mb-3">{item.title}</h3>
               <p className="text-slate-600 text-sm leading-relaxed mb-6">{item.description}</p>
-              <a
-                href="#"
+              <Link
+                href="/about"
                 className="inline-flex items-center text-sm font-semibold text-blue-600 hover:text-blue-700"
               >
                 Learn More <span className="ml-1">→</span>
-              </a>
+              </Link>
             </div>
           ))}
         </div>

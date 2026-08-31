@@ -1,5 +1,6 @@
 import React from "react";
 import { Phone, Mail, MapPin, Globe } from "lucide-react";
+import Link from "next/link";
 
 export const Footer: React.FC = () => {
   return (
@@ -28,11 +29,11 @@ export const Footer: React.FC = () => {
         <div>
           <h4 className="text-slate-900 font-bold text-sm mb-4">Quick Links</h4>
           <ul className="space-y-3 text-xs">
-            <li><a href="#" className="hover:text-blue-600 transition-colors">About Us</a></li>
-            <li><a href="#" className="hover:text-blue-600 transition-colors">Services</a></li>
-            <li><a href="#" className="hover:text-blue-600 transition-colors">Pricing Plans</a></li>
-            <li><a href="#" className="hover:text-blue-600 transition-colors">Call Rate List</a></li>
-            <li><a href="#" className="hover:text-blue-600 transition-colors">Contact Us</a></li>
+            <li><Link href="#" className="hover:text-blue-600 transition-colors">About Us</Link></li>
+            <li><Link href="#" className="hover:text-blue-600 transition-colors">Services</Link></li>
+            <li><Link href="#" className="hover:text-blue-600 transition-colors">Pricing Plans</Link></li>
+            <li><Link href="#" className="hover:text-blue-600 transition-colors">Call Rate List</Link></li>
+            <li><Link href="#" className="hover:text-blue-600 transition-colors">Contact Us</Link></li>
           </ul>
         </div>
 
@@ -40,11 +41,11 @@ export const Footer: React.FC = () => {
         <div>
           <h4 className="text-slate-900 font-bold text-sm mb-4">Solutions</h4>
           <ul className="space-y-3 text-xs">
-            <li><a href="#" className="hover:text-blue-600 transition-colors">Bulk Voice Call</a></li>
-            <li><a href="#" className="hover:text-blue-600 transition-colors">Cloud PBX System</a></li>
-            <li><a href="#" className="hover:text-blue-600 transition-colors">Cloud Recording</a></li>
-            <li><a href="#" className="hover:text-blue-600 transition-colors">Toll-Free 1800 Number</a></li>
-            <li><a href="#" className="hover:text-blue-600 transition-colors">Voice API Integration</a></li>
+            <li><Link href="#" className="hover:text-blue-600 transition-colors">Bulk Voice Call</Link></li>
+            <li><Link href="#" className="hover:text-blue-600 transition-colors">Cloud PBX System</Link></li>
+            <li><Link href="#" className="hover:text-blue-600 transition-colors">Cloud Recording</Link></li>
+            <li><Link href="#" className="hover:text-blue-600 transition-colors">Toll-Free 1800 Number</Link></li>
+            <li><Link href="#" className="hover:text-blue-600 transition-colors">Voice API Integration</Link></li>
           </ul>
         </div>
 
@@ -84,8 +85,8 @@ export const Footer: React.FC = () => {
         </div>
 
         <div className="flex gap-4">
-          <a href="#" className="hover:text-slate-800 transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-slate-800 transition-colors">Terms of Service</a>
+          <Link href="#" className="hover:text-slate-800 transition-colors">Privacy Policy</Link>
+          <Link href="#" className="hover:text-slate-800 transition-colors">Terms of Service</Link>
         </div>
       </div>
     </footer>

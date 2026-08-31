@@ -3,6 +3,7 @@
 
 import React, { useState } from "react";
 import { ChevronDown, HelpCircle, MessageSquare } from "lucide-react";
+import Link from "next/link";
 
 interface FaqItem {
   question: string;
@@ -68,12 +69,12 @@ export const FaqSection: React.FC = () => {
                 <p className="text-xs text-slate-500 mt-1">
                   Can't find the answer you're looking for? Reach out to our 24/7 customer service team.
                 </p>
-                <a
-                  href="#contact"
+                <Link
+                  href="/contact"
                   className="inline-flex items-center text-xs font-bold text-blue-600 hover:text-blue-700 mt-3"
                 >
                   Contact Support →
-                </a>
+                </Link>
               </div>
             </div>
           </div>

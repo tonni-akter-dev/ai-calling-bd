@@ -1,31 +1,37 @@
 import React from "react";
-import { Phone } from "lucide-react";
+import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 
 export const CtaSection: React.FC = () => {
   return (
-    <section className="w-full ">
-      <div className="bg-linear-to-r from-blue-900 to-indigo-900  p-30 md:p-16 text-center
-       text-white shadow-xl relative overflow-hidden">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          Ready to Upgrade Your Communication?
-        </h2>
-        <p className="text-blue-200 max-w-xl mx-auto mb-8 text-sm md:text-base">
-          Join hundreds of growing businesses across the nation. Get setup in less than 24 hours.
-        </p>
+        <section className="relative bg-linear-to-b from-white via-slate-50 to-[#F8FAFC] py-16">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="relative rounded-3xl bg-[#0b1329] border border-slate-800 text-center text-white shadow-2xl overflow-hidden py-16 px-6 md:px-12">
+            <div className="relative z-10 max-w-2xl mx-auto">
+              <h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">
+                Ready to Get Started?
+              </h2>
+              <p className="text-slate-400 max-w-xl mx-auto mb-8 text-sm md:text-base leading-relaxed">
+                Elevate your cloud phone system with CallFlow. Dedicated setup in less than 24 hours.
+              </p>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button className="w-full sm:w-auto bg-blue-600 hover:bg-blue-500 text-white px-8 py-3.5 rounded-xl font-semibold transition">
-            Get Started Now
-          </button>
-          <a
-            href="tel:09612000000"
-            className="w-full sm:w-auto inline-flex items-center justify-center border border-white/20 hover:bg-white/10 px-8 py-3.5 rounded-xl font-semibold transition text-white"
-          >
-            <Phone className="w-4 h-4 mr-2" />
-            09612 000 000
-          </a>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Link
+                  href="/contact"
+                  className="w-full sm:w-auto bg-white hover:bg-slate-100 text-slate-900 px-8 py-3.5 rounded-xl font-semibold transition text-sm inline-flex items-center justify-center"
+                >
+                  Contact Us Today
+                </Link>
+                <Link
+                  href="#pricing"
+                  className="w-full sm:w-auto border border-slate-700 bg-slate-900/60 hover:bg-slate-800 px-8 py-3.5 rounded-xl font-semibold transition text-white text-sm inline-flex items-center justify-center"
+                >
+                  View Pricing <ArrowRight className="w-4 h-4 ml-2" />
+                </Link>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
   );
 };
