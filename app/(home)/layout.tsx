@@ -1,6 +1,6 @@
 // app/(home)/layout.tsx
 import React from "react";
-import Header from "../shared/Header"; // Adjust import path based on your folder setup
+import Header from "../shared/Header"; 
 import { Footer } from "../shared/Footer";
 
 export default function HomeLayout({

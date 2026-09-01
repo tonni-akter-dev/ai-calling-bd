@@ -1,307 +1,458 @@
 /* eslint-disable react/no-unescaped-entities */
 "use client";
 
-import React, { useState } from "react";
+import { useState } from "react";
 import {
-  Check,
-  Zap,
+  FileText,
   CreditCard,
-  ShieldCheck,
-  Building2,
+  Printer,
+  Download,
+  XCircle,
+  ArrowLeft,
+  ArrowRight,
+  DollarSign,
+  CheckCircle2,
   Clock,
-  ArrowUpRight,
-  Wallet,
+  Building2,
 } from "lucide-react";
 
-export default function BillingAndPlansPage() {
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "yearly">("monthly");
-  const [selectedPlan, setSelectedPlan] = useState("Enterprise");
-  const [rechargeAmount, setRechargeAmount] = useState("1000");
+// Types
+interface InvoiceItem {
+  description: string;
+  details?: string[];
+  vat: string;
+  unitCost: number;
+  qty: number;
+  total: number;
+}
 
-  const plans = [
+interface Invoice {
+  id: string;
+  status: "UNPAID" | "PAID" | "CANCELLED";
+  total: number;
+  invoiceDate: string;
+  dueDate: string;
+  datePaid: string;
+  items: InvoiceItem[];
+  subtotal: number;
+  previousDues: number;
+  credit: number;
+  vatRate: number;
+  vatAmount: number;
+}
+
+export default function BillingPage() {
+  const [selectedInvoice, setSelectedInvoice] = useState<Invoice | null>(null);
+
+  // Mock Invoice Data
+  const invoices: Invoice[] = [
     {
-      name: "Starter",
-      desc: "For small teams starting with basic IP calling.",
-      monthlyPrice: 1500,
-      yearlyPrice: 15000,
-      channels: "5 Concurrent Calls",
-      extensions: "Up to 10 Extensions",
-      rate: "40 Paisa / min",
-      features: [
-        "1 Free IPTSP Number",
-        "Basic Call Routing & IVR",
-        "Free IP-to-IP Calling",
-        "Standard Audio Quality",
-        "Email Support",
+      id: "36543",
+      status: "UNPAID",
+      total: 1050.0,
+      invoiceDate: "29 Aug 2026",
+      dueDate: "02 Jul 2026",
+      datePaid: "—",
+      subtotal: 500.0,
+      previousDues: 500.0,
+      credit: 0.0,
+      vatRate: 5,
+      vatAmount: 50.0,
+      items: [
+        {
+          description: "Cloud IP PBX - Previous Outstanding Dues",
+          details: ["(02 Jul 2026 - 02 Aug 2026)"],
+          vat: "",
+          unitCost: 500.0,
+          qty: 1,
+          total: 500.0,
+        },
+        {
+          description: "Cloud IP PBX - 1 Month Package",
+          details: [
+            "* Call Recording: Yes",
+            "* Voice SMS: Yes",
+            "* Call Forwarding: Yes",
+            "* Call Conference: Yes",
+            "* Call Monitoring: Yes",
+            "(02 Aug 2026 - 02 Sep 2026)",
+          ],
+          vat: "Yes",
+          unitCost: 500.0,
+          qty: 1,
+          total: 500.0,
+        },
       ],
-      popular: false,
     },
     {
-      name: "Enterprise",
-      desc: "Ideal for growing corporate offices & support teams.",
-      monthlyPrice: 3500,
-      yearlyPrice: 35000,
-      channels: "20 Concurrent Calls",
-      extensions: "Up to 30 Extensions",
-      rate: "35 Paisa / min",
-      features: [
-        "2 Free IPTSP Numbers",
-        "Advanced Multi-Level IVR",
-        "Bulk Voice Campaign Access",
-        "Call Recording (90 Days)",
-        "Priority 24/7 Support",
-        "Web Softphone Integration",
-      ],
-      popular: true,
-    },
-    {
-      name: "Custom Corporate",
-      desc: "For large enterprises requiring high channel capacity.",
-      monthlyPrice: 8500,
-      yearlyPrice: 85000,
-      channels: "Unlimited Calls",
-      extensions: "100+ Extensions",
-      rate: "30 Paisa / min",
-      features: [
-        "Dedicated Trunking & API",
-        "Custom Voice Greeting Studio",
-        "Unlimited Call Recording",
-        "SLA & Dedicated Account Mgr",
-        "Custom CRM Integration",
-      ],
-      popular: false,
+      id: "36454",
+      status: "CANCELLED",
+      total: 1050.0,
+      invoiceDate: "12 Aug 2026",
+      dueDate: "02 Jul 2026",
+      datePaid: "—",
+      subtotal: 500.0,
+      previousDues: 500.0,
+      credit: 0.0,
+      vatRate: 5,
+      vatAmount: 50.0,
+      items: [],
     },
   ];
 
-  const paymentHistory = [
-    { id: "INV-2026-004", date: "Aug 15, 2026", amount: "৳ 3,500", status: "Paid", method: "bKash" },
-    { id: "INV-2026-003", date: "Jul 15, 2026", amount: "৳ 3,500", status: "Paid", method: "Nagad" },
-    { id: "INV-2026-002", date: "Jun 15, 2026", amount: "৳ 1,000", status: "Recharge", method: "Visa Card" },
-  ];
+  const handlePrint = () => {
+    window.print();
+  };
+
+  const getStatusBadge = (status: Invoice["status"]) => {
+    switch (status) {
+      case "UNPAID":
+        return (
+          <span className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-rose-50 text-rose-600 border border-rose-200 print:border-none print:p-0 print:text-rose-600 print:bg-transparent">
+            <Clock className="w-3 h-3 print:hidden" />
+            <span>Unpaid</span>
+          </span>
+        );
+      case "PAID":
+        return (
+          <span className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-600 border border-emerald-200 print:border-none print:p-0 print:text-emerald-600 print:bg-transparent">
+            <CheckCircle2 className="w-3 h-3 print:hidden" />
+            <span>Paid</span>
+          </span>
+        );
+      case "CANCELLED":
+        return (
+          <span className="inline-flex items-center space-x-1.5 px-2.5 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600 border border-slate-200 print:border-none print:p-0 print:text-slate-600 print:bg-transparent">
+            <XCircle className="w-3 h-3 print:hidden" />
+            <span>Cancelled</span>
+          </span>
+        );
+    }
+  };
 
   return (
-    <div className="max-w-7xl mx-auto space-y-8">
-      {/* 1. Header & Active Subscription Summary */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-        
-        {/* Current Plan Overview Card */}
-        <div className="lg:col-span-2 bg-[#1e293b] p-6 rounded-2xl border border-slate-700/80 shadow-lg shadow-slate-950/20 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-bold text-blue-400 uppercase tracking-wider bg-blue-500/10 border border-blue-500/30 px-3 py-1 rounded-full">
-                Active Subscription
-              </span>
-              <span className="text-xs text-slate-400 font-mono">Renews Sep 15, 2026</span>
-            </div>
-            <h2 className="text-2xl font-extrabold text-white">Enterprise Bulk Caller Plan</h2>
-            <p className="text-xs text-slate-400 mt-1 max-w-lg">
-              30 Extensions active, Multi-level IVR, and Bulk Voice Campaign access included.
-            </p>
-          </div>
-
-          <div className="pt-6 mt-6 border-t border-slate-700/80 flex flex-wrap items-center justify-between gap-4">
-            <div className="flex items-center space-x-6">
-              <div>
-                <p className="text-[11px] text-slate-400 uppercase font-semibold">Monthly Charge</p>
-                <p className="text-lg font-bold text-white mt-0.5">৳ 3,500 / mo</p>
-              </div>
-              <div className="w-px h-8 bg-slate-700/80" />
-              <div>
-                <p className="text-[11px] text-slate-400 uppercase font-semibold">Billing Rate</p>
-                <p className="text-lg font-bold text-emerald-400 mt-0.5">35 Paisa / min</p>
-              </div>
+    <div className="max-w-8xl mx-auto space-y-6 min-h-screen p-4 md:p-6 text-slate-800">
+      {/* ------------------------------------------------------------- */}
+      {/* VIEW 1: INVOICE LIST & SUMMARY DASHBOARD                     */}
+      {/* ------------------------------------------------------------- */}
+      {!selectedInvoice ? (
+        <div className="print:hidden space-y-6">
+          {/* Header Summary Banner */}
+          <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+              <h2 className="text-xl font-extrabold text-slate-900 tracking-wide">
+                Billing Overview
+              </h2>
+              <p className="text-xs text-slate-500 mt-1">
+                Current status of your invoices, outstanding balance, and payments.
+              </p>
             </div>
 
-            <button className="text-xs font-bold text-slate-300 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 px-4 py-2.5 rounded-xl transition">
-              Manage Subscription
-            </button>
-          </div>
-        </div>
-
-        {/* Quick Recharge Talk-Time Card */}
-        <div className="bg-[#1e293b] p-6 rounded-2xl border border-slate-700/80 shadow-lg shadow-slate-950/20 flex flex-col justify-between">
-          <div>
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-bold text-white uppercase tracking-wider">Talk-Time Balance</h3>
-              <Wallet className="w-4 h-4 text-emerald-400" />
-            </div>
-            <div className="text-3xl font-black text-white">৳ 1,250.00</div>
-            <p className="text-[11px] text-slate-400 mt-1">No expiration date on talk-time balance.</p>
-          </div>
-
-          {/* Quick Add Balance */}
-          <div className="space-y-3 mt-4">
-            <div className="flex items-center space-x-2">
-              {["500", "1000", "2000"].map((amt) => (
-                <button
-                  key={amt}
-                  onClick={() => setRechargeAmount(amt)}
-                  className={`flex-1 py-1.5 rounded-lg text-xs font-mono font-bold border transition ${
-                    rechargeAmount === amt
-                      ? "bg-blue-600 text-white border-blue-500"
-                      : "bg-[#0f172a] text-slate-300 border-slate-700 hover:border-slate-600"
-                  }`}
-                >
-                  ৳{amt}
-                </button>
-              ))}
-            </div>
-
-            <button className="w-full bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold py-3 rounded-xl transition flex items-center justify-center space-x-2 shadow-lg shadow-emerald-600/20">
-              <CreditCard className="w-4 h-4" />
-              <span>Instant Recharge (bKash / Card)</span>
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* 2. Monthly / Yearly Billing Toggle Section */}
-      <div className="text-center space-y-4 pt-4">
-        <h2 className="text-xl md:text-2xl font-extrabold text-white tracking-tight">
-          Choose standard monthly packages
-        </h2>
-        
-        {/* Billing Switcher */}
-        <div className="inline-flex items-center bg-[#1e293b] p-1.5 rounded-2xl border border-slate-700/80">
-          <button
-            onClick={() => setBillingCycle("monthly")}
-            className={`px-5 py-2 rounded-xl text-xs font-bold transition ${
-              billingCycle === "monthly"
-                ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
-                : "text-slate-400 hover:text-white"
-            }`}
-          >
-            Monthly Billing
-          </button>
-          <button
-            onClick={() => setBillingCycle("yearly")}
-            className={`px-5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 ${
-              billingCycle === "yearly"
-                ? "bg-blue-600 text-white shadow-md shadow-blue-600/30"
-                : "text-slate-400 hover:text-white"
-            }`}
-          >
-            <span>Yearly Billing</span>
-            <span className="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 px-2 py-0.5 rounded-full">
-              Save 20%
-            </span>
-          </button>
-        </div>
-      </div>
-
-      {/* 3. Pricing Cards Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {plans.map((plan) => {
-          const price = billingCycle === "monthly" ? plan.monthlyPrice : Math.floor(plan.yearlyPrice / 12);
-          const isCurrent = selectedPlan === plan.name;
-
-          return (
-            <div
-              key={plan.name}
-              className={`relative bg-[#1e293b] rounded-2xl p-6 md:p-8 border flex flex-col justify-between transition-all duration-200 ${
-                plan.popular
-                  ? "border-blue-500/80 shadow-xl shadow-blue-600/10 ring-1 ring-blue-500/50"
-                  : "border-slate-700/80 shadow-lg shadow-slate-950/20"
-              }`}
-            >
-              {plan.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-3.5 py-1 rounded-full shadow-md">
-                  Most Popular
+            <div className="flex items-center divide-x divide-slate-200 bg-slate-50 rounded-xl p-3 border border-slate-200">
+              <div className="px-4 text-right">
+                <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+                  Invoices Due
                 </span>
-              )}
-
-              <div>
-                <h3 className="text-lg font-bold text-white">{plan.name}</h3>
-                <p className="text-xs text-slate-400 mt-1 min-h-[32px]">{plan.desc}</p>
-
-                {/* Price Display */}
-                <div className="my-6">
-                  <div className="flex items-baseline space-x-1">
-                    <span className="text-3xl md:text-4xl font-black text-white">৳ {price.toLocaleString()}</span>
-                    <span className="text-xs text-slate-400 font-semibold">/ month</span>
-                  </div>
-                  <p className="text-[11px] text-emerald-400 font-mono mt-1">Call Rate: {plan.rate}</p>
-                </div>
-
-                {/* Specs List */}
-                <div className="space-y-3 pt-4 border-t border-slate-700/80">
-                  <div className="flex items-center space-x-2 text-xs font-semibold text-slate-200">
-                    <Check className="w-4 h-4 text-blue-400 shrink-0" />
-                    <span>{plan.channels}</span>
-                  </div>
-                  <div className="flex items-center space-x-2 text-xs font-semibold text-slate-200">
-                    <Check className="w-4 h-4 text-blue-400 shrink-0" />
-                    <span>{plan.extensions}</span>
-                  </div>
-                  {plan.features.map((feat, i) => (
-                    <div key={i} className="flex items-center space-x-2 text-xs text-slate-300">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>{feat}</span>
-                    </div>
-                  ))}
-                </div>
+                <p className="text-lg font-black text-rose-600 font-mono">
+                  BDT 1,050.00 TK
+                </p>
               </div>
+              <div className="px-4 text-right">
+                <span className="text-[10px] uppercase font-bold text-slate-500 tracking-wider">
+                  Total Paid
+                </span>
+                <p className="text-lg font-black text-emerald-600 font-mono">
+                  BDT 0.00 TK
+                </p>
+              </div>
+            </div>
+          </div>
 
+          {/* Invoices Table */}
+          <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+            <div className="p-5 border-b border-slate-200 flex items-center justify-between">
+              <div className="flex items-center space-x-2.5">
+                <div className="p-2 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
+                  <FileText className="w-5 h-5" />
+                </div>
+                <h3 className="text-base font-bold text-slate-900 tracking-wide">
+                  Invoices
+                </h3>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead>
+                  <tr className="bg-blue-600 text-white font-bold tracking-wider uppercase border-b border-blue-500">
+                    <th className="py-3.5 px-4">Invoice #</th>
+                    <th className="py-3.5 px-4">Status</th>
+                    <th className="py-3.5 px-4">Total</th>
+                    <th className="py-3.5 px-4">Invoice Date</th>
+                    <th className="py-3.5 px-4">Due Date</th>
+                    <th className="py-3.5 px-4">Date Paid</th>
+                    <th className="py-3.5 px-4 text-right">Action</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-200 text-slate-700">
+                  {invoices.map((inv) => (
+                    <tr
+                      key={inv.id}
+                      className="hover:bg-slate-50 transition duration-150"
+                    >
+                      <td className="py-4 px-4 font-bold text-blue-600 font-mono">
+                        #{inv.id}
+                      </td>
+                      <td className="py-4 px-4">{getStatusBadge(inv.status)}</td>
+                      <td className="py-4 px-4 font-bold text-slate-900 font-mono">
+                        BDT {inv.total.toFixed(2)} TK
+                      </td>
+                      <td className="py-4 px-4">{inv.invoiceDate}</td>
+                      <td className="py-4 px-4">{inv.dueDate}</td>
+                      <td className="py-4 px-4 text-slate-400">{inv.datePaid}</td>
+                      <td className="py-4 px-4 text-right">
+                        <button
+                          onClick={() => setSelectedInvoice(inv)}
+                          className="inline-flex items-center justify-center p-2 rounded-lg bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white transition border border-blue-200"
+                          title="View Details"
+                        >
+                          <ArrowRight className="w-4 h-4" />
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      ) : (
+        /* ------------------------------------------------------------- */
+        /* VIEW 2: INVOICE DETAIL & MUSHAK 6.3 PRINTABLE VIEW           */
+        /* ------------------------------------------------------------- */
+        <div className="space-y-6">
+          {/* Top Control Bar - Hidden when printing */}
+          <div className="print:hidden flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <button
+              onClick={() => setSelectedInvoice(null)}
+              className="inline-flex items-center space-x-2 text-xs font-bold text-slate-600 hover:text-slate-900 transition"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              <span>Back to invoices</span>
+            </button>
+
+            {/* Action Buttons */}
+            <div className="flex flex-wrap items-center gap-2">
+              <button className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-600 hover:text-white transition flex items-center space-x-1.5">
+                <CreditCard className="w-3.5 h-3.5" />
+                <span>Pay with Credit</span>
+              </button>
+              <button className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-blue-600 text-white hover:bg-blue-500 transition shadow-md shadow-blue-600/10 flex items-center space-x-1.5">
+                <DollarSign className="w-3.5 h-3.5" />
+                <span>Pay Now!</span>
+              </button>
+              
+              {/* Connected Print Button */}
               <button
-                onClick={() => setSelectedPlan(plan.name)}
-                className={`w-full py-3.5 rounded-xl text-xs font-bold transition mt-8 ${
-                  isCurrent
-                    ? "bg-slate-800 text-slate-400 border border-slate-700 cursor-default"
-                    : plan.popular
-                    ? "bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/25"
-                    : "bg-slate-800 hover:bg-slate-700 text-white border border-slate-700"
-                }`}
+                onClick={handlePrint}
+                className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 hover:text-slate-900 transition flex items-center space-x-1.5 shadow-sm"
               >
-                {isCurrent ? "Current Plan" : "Upgrade Plan"}
+                <Printer className="w-3.5 h-3.5" />
+                <span>Print Invoice</span>
+              </button>
+
+              <button className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-white text-slate-700 border border-slate-200 hover:bg-slate-100 hover:text-slate-900 transition flex items-center space-x-1.5 shadow-sm">
+                <Download className="w-3.5 h-3.5" />
+                <span>Download PDF</span>
+              </button>
+              <button className="px-3.5 py-2 rounded-xl text-xs font-semibold bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-600 hover:text-white transition flex items-center space-x-1.5">
+                <XCircle className="w-3.5 h-3.5" />
+                <span>Cancel Invoice</span>
               </button>
             </div>
-          );
-        })}
-      </div>
-
-      {/* 4. Billing History Table */}
-      <div className="bg-[#1e293b] rounded-2xl border border-slate-700/80 p-6 shadow-lg shadow-slate-950/20">
-        <div className="flex items-center justify-between mb-6 pb-4 border-b border-slate-700/80">
-          <div>
-            <h3 className="text-base font-bold text-white">Billing & Payment History</h3>
-            <p className="text-xs text-slate-400">Download invoices and review recent payments</p>
           </div>
-          <button className="text-xs text-blue-400 hover:text-blue-300 font-semibold inline-flex items-center space-x-1">
-            <span>Download All</span>
-            <ArrowUpRight className="w-3.5 h-3.5" />
-          </button>
-        </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead>
-              <tr className="border-b border-slate-700/80 text-slate-400 font-semibold uppercase tracking-wider">
-                <th className="pb-3 px-4">Invoice ID</th>
-                <th className="pb-3 px-4">Date</th>
-                <th className="pb-3 px-4">Method</th>
-                <th className="pb-3 px-4">Amount</th>
-                <th className="pb-3 px-4 text-right">Status</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-800/80 text-slate-300">
-              {paymentHistory.map((item) => (
-                <tr key={item.id} className="hover:bg-slate-900/40 transition">
-                  <td className="py-4 px-4 font-mono font-bold text-white">{item.id}</td>
-                  <td className="py-4 px-4">{item.date}</td>
-                  <td className="py-4 px-4">{item.method}</td>
-                  <td className="py-4 px-4 font-bold text-white">{item.amount}</td>
-                  <td className="py-4 px-4 text-right">
-                    <span className="inline-flex items-center space-x-1 text-[10px] font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-full">
-                      <ShieldCheck className="w-3 h-3" />
-                      <span>{item.status}</span>
-                    </span>
-                  </td>
+          {/* Printable Mushak 6.3 Document */}
+          <div className="printable-document bg-white border border-slate-200 rounded-2xl p-8 md:p-12 shadow-md text-slate-800 text-xs print:p-0 print:border-none print:shadow-none print:rounded-none">
+            {/* National Header */}
+            <div className="text-center space-y-0.5 mb-8">
+              <p className="font-bold text-slate-900 text-sm">
+                The Government of the People's Republic of Bangladesh
+              </p>
+              <p className="text-xs text-slate-700">
+                National Board of Revenue
+              </p>
+              <p className="font-bold text-slate-900 text-xs">Mushak:6.3</p>
+            </div>
+
+            {/* Invoice Header Details Grid */}
+            <div className="grid grid-cols-12 gap-4 mb-8">
+              {/* Brand & Client Info */}
+              <div className="col-span-12 md:col-span-5 print:col-span-5 space-y-4">
+                <div className="flex items-center space-x-2 text-blue-600 font-black text-xl">
+                  <Building2 className="w-6 h-6" />
+                  <span className="tracking-tight">AI CALL BD</span>
+                </div>
+                <div className="space-y-0.5">
+                  <span className="font-bold text-slate-900">To:</span>
+                  <p className="font-bold text-slate-900">ai call bd</p>
+                  <p className="text-slate-700">nahl</p>
+                  <p className="text-slate-700">kajol.arishiaan@gmail.com</p>
+                  <p className="text-slate-700">01786907129</p>
+                </div>
+              </div>
+
+              {/* Vendor Info */}
+              <div className="col-span-12 md:col-span-4 print:col-span-4 space-y-0.5 pt-0 md:pt-10 print:pt-10">
+                <span className="font-bold text-slate-900">From:</span>
+                <p className="font-bold text-slate-900">IP Call BD</p>
+                <p className="text-slate-700">House No. 409/1 (1st Floor)</p>
+                <p className="text-slate-700">South Monipur, Kazipara</p>
+                <p className="text-slate-700">Mirpur-12, Dhaka-1216, Bangladesh</p>
+                <p className="text-slate-700">BIN-0021637020101</p>
+              </div>
+
+              {/* Invoice Meta */}
+              <div className="col-span-12 md:col-span-3 print:col-span-3 text-left md:text-right print:text-right space-y-1">
+                <p className="font-bold text-slate-900">
+                  Invoice <span className="font-mono">{selectedInvoice.id}</span>
+                </p>
+                <p className="text-slate-700">
+                  Date of Invoice{" "}
+                  <span className="font-bold">{selectedInvoice.invoiceDate}</span>
+                </p>
+                <p className="text-slate-700">
+                  Due Date{" "}
+                  <span className="font-bold">{selectedInvoice.dueDate}</span>
+                </p>
+                <div className="pt-1 font-bold text-slate-900">
+                  Status: {getStatusBadge(selectedInvoice.status)}
+                </div>
+              </div>
+            </div>
+
+            {/* Line Items Table */}
+            <table className="w-full text-left border-collapse mb-6">
+              <thead>
+                <tr className="border-b border-t border-slate-300 text-slate-900 font-bold bg-slate-50 print:bg-transparent">
+                  <th className="py-2.5 px-2">Description</th>
+                  <th className="py-2.5 px-2 text-center">VAT</th>
+                  <th className="py-2.5 px-2 text-right">Unit cost</th>
+                  <th className="py-2.5 px-2 text-center">Qty</th>
+                  <th className="py-2.5 px-2 text-right">Price</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-slate-200 text-slate-800">
+                {selectedInvoice.items.map((item, index) => (
+                  <tr key={index}>
+                    <td className="py-3 px-2 space-y-0.5">
+                      <p className="font-bold text-slate-900">
+                        {item.description}
+                      </p>
+                      {item.details && (
+                        <div className="text-[11px] text-slate-700 space-y-0.5">
+                          {item.details.map((d, i) => (
+                            <p key={i}>{d}</p>
+                          ))}
+                        </div>
+                      )}
+                    </td>
+                    <td className="py-3 px-2 text-center align-middle">
+                      {item.vat}
+                    </td>
+                    <td className="py-3 px-2 text-right align-middle font-mono">
+                      BDT {item.unitCost.toFixed(2)} TK
+                    </td>
+                    <td className="py-3 px-2 text-center align-middle font-mono">
+                      {item.qty}
+                    </td>
+                    <td className="py-3 px-2 text-right align-middle font-mono font-semibold">
+                      BDT {item.total.toFixed(2)} TK
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {/* Calculations Breakdown */}
+            <div className="flex justify-end pt-2 border-t border-slate-300 mb-16">
+              <div className="w-full md:w-80 print:w-80 space-y-2 text-xs">
+                <div className="flex justify-between font-bold text-slate-900">
+                  <span>Subtotal:</span>
+                  <span className="font-mono">
+                    BDT {selectedInvoice.subtotal.toFixed(2)} TK
+                  </span>
+                </div>
+                <div className="flex justify-between font-bold text-slate-900">
+                  <span>Previous Dues:</span>
+                  <span className="font-mono">
+                    BDT {selectedInvoice.previousDues.toFixed(2)} TK
+                  </span>
+                </div>
+                <div className="flex justify-between font-bold text-slate-900">
+                  <span>Credit:</span>
+                  <span className="font-mono">
+                    BDT {selectedInvoice.credit.toFixed(2)} TK
+                  </span>
+                </div>
+                <div className="flex justify-between font-bold text-slate-900">
+                  <span>VAT ({selectedInvoice.vatRate}.00%):</span>
+                  <span className="font-mono">
+                    BDT {selectedInvoice.vatAmount.toFixed(2)} TK
+                  </span>
+                </div>
+                <div className="flex justify-between font-black text-sm text-slate-900 pt-2 border-t border-slate-300">
+                  <span>Total:</span>
+                  <span className="font-mono text-base">
+                    BDT {selectedInvoice.total.toLocaleString("en-US", { minimumFractionDigits: 2 })} TK
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Legal / Footer Note */}
+            <div className="border-t border-slate-200 pt-4 text-center text-[10px] text-slate-600 space-y-0.5">
+              <p>Price excluding all taxes. We are ITES entity.</p>
+              <p>Manual signature is not required for system generated invoice.</p>
+            </div>
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Global CSS Overrides for Crisp Paper Printing */}
+      <style jsx global>{`
+        @media print {
+          /* Hide non-printable UI elements */
+          body * {
+            visibility: hidden;
+            background: transparent !important;
+          }
+          
+          /* Show only the invoice sheet */
+          .printable-document,
+          .printable-document * {
+            visibility: visible;
+            color: #000000 !important;
+          }
+
+          /* Force exact positioning and paper width */
+          .printable-document {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            margin: 0;
+            padding: 0 !important;
+            box-shadow: none !important;
+            border: none !important;
+          }
+
+          @page {
+            size: A4 portrait;
+            margin: 12mm;
+          }
+        }
+      `}</style>
     </div>
   );
 }

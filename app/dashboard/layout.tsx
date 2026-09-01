@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
@@ -7,7 +6,6 @@ import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
   PhoneCall,
-  Sliders,
   Users,
   CreditCard,
   Settings,
@@ -20,6 +18,11 @@ import {
   User,
   AlertCircle,
   CheckCircle2,
+  FileAudio,
+  ListOrdered,
+  Headphones,
+  Wallet,
+  History,
 } from "lucide-react";
 
 export default function DashboardLayout({
@@ -29,10 +32,13 @@ export default function DashboardLayout({
 }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [notificationOpen, setNotificationOpen] = useState(false);
+
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const notificationRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  // Close dropdown when clicking outside
+  // Close profile dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -46,9 +52,19 @@ export default function DashboardLayout({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Dropdown state and refs
-  const [notificationOpen, setNotificationOpen] = useState(false);
-  const notificationRef = useRef<HTMLDivElement>(null);
+  // Close notifications dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target as Node)
+      ) {
+        setNotificationOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   // Mock notifications state
   const [notifications, setNotifications] = useState([
@@ -99,30 +115,20 @@ export default function DashboardLayout({
 
   const markAsRead = (id: number) => {
     setNotifications((prev) =>
-      prev.map((n) => (n.id === id ? { ...n, read: true } : n)),
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
     );
   };
 
-  // Outside click handler for notifications
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        notificationRef.current &&
-        !notificationRef.current.contains(event.target as Node)
-      ) {
-        setNotificationOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
   const navigation = [
-    { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-    { name: "Voice Call", href: "/dashboard/voice-call", icon: PhoneCall },
-    { name: "Call Logs", href: "/dashboard/call-logs", icon: Sliders },
-    { name: "Contacts", href: "/dashboard/contacts", icon: Users },
-    { name: "Billing & Plans", href: "/dashboard/billing", icon: CreditCard },
-    { name: "Settings", href: "/dashboard/settings", icon: Settings },
+    { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
+    { name: "Manage Contact", href: "/dashboard/manage-contacts", icon: Users },
+    { name: "Send Voice Call", href: "/dashboard/voice-call", icon: PhoneCall },
+    { name: "Calls History", href: "/dashboard/calls-history", icon: History },
+    { name: "Manage Voice File", href: "/dashboard/manage-voice-file", icon: FileAudio },
+    { name: "All Call Logs", href: "/dashboard/all-call-logs", icon: ListOrdered },
+    { name: "Billing", href: "/dashboard/billing", icon: CreditCard },
+    { name: "Credit", href: "/dashboard/credit", icon: Wallet },
+    { name: "Support Ticket", href: "/dashboard/support-ticket", icon: Headphones },
   ];
 
   return (
@@ -146,7 +152,7 @@ export default function DashboardLayout({
         {/* Brand Header */}
         <div className="h-16 px-6 flex items-center justify-between border-b border-slate-700/80 bg-[#1e293b]">
           <Link href="/dashboard" className="flex items-center space-x-2.5">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+            <div className="w-9 h-9 rounded-xl bg-linear-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
               <Phone className="w-4 h-4" />
             </div>
             <span className="font-extrabold text-lg text-white tracking-tight">
@@ -237,7 +243,6 @@ export default function DashboardLayout({
               <span className="text-emerald-400 font-bold">৳ 1,250.00</span>
             </div>
 
-            {/* Notifications Button */}
             {/* Notifications Dropdown */}
             <div className="relative" ref={notificationRef}>
               <button
@@ -253,7 +258,6 @@ export default function DashboardLayout({
               {/* Dropdown Menu */}
               {notificationOpen && (
                 <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-[#1e293b] border border-slate-700/80 rounded-2xl shadow-xl shadow-slate-950/40 py-2 z-50">
-                  {/* Header */}
                   <div className="px-4 py-2.5 border-b border-slate-700/80 flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <h3 className="text-xs font-bold text-white uppercase tracking-wider">
@@ -292,7 +296,9 @@ export default function DashboardLayout({
                           <div className="flex-1 min-w-0">
                             <div className="flex items-center justify-between">
                               <p
-                                className={`text-xs font-bold truncate ${!item.read ? "text-white" : "text-slate-300"}`}
+                                className={`text-xs font-bold truncate ${
+                                  !item.read ? "text-white" : "text-slate-300"
+                                }`}
                               >
                                 {item.title}
                               </p>
@@ -315,6 +321,7 @@ export default function DashboardLayout({
                 </div>
               )}
             </div>
+
             {/* User Profile Dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button
@@ -325,14 +332,15 @@ export default function DashboardLayout({
                   A
                 </div>
                 <ChevronDown
-                  className={`w-3.5 h-3.5 text-slate-400 hidden sm:block transition-transform duration-200 ${dropdownOpen ? "rotate-180" : ""}`}
+                  className={`w-3.5 h-3.5 text-slate-400 hidden sm:block transition-transform duration-200 ${
+                    dropdownOpen ? "rotate-180" : ""
+                  }`}
                 />
               </button>
 
               {/* Dropdown Menu Container */}
               {dropdownOpen && (
                 <div className="absolute right-0 mt-2 w-64 bg-[#1e293b] border border-slate-700/80 rounded-2xl shadow-xl shadow-slate-950/40 py-2 z-50">
-                  {/* User Profile Info Header */}
                   <div className="px-4 py-3 border-b border-slate-700/80">
                     <p className="text-xs font-bold text-white truncate">
                       Admin User
@@ -342,7 +350,6 @@ export default function DashboardLayout({
                     </p>
                   </div>
 
-                  {/* Dropdown Items */}
                   <div className="p-1.5 space-y-1">
                     <Link
                       href="/dashboard/settings"
@@ -363,7 +370,6 @@ export default function DashboardLayout({
                     </Link>
                   </div>
 
-                  {/* Logout Divider */}
                   <div className="p-1.5 border-t border-slate-700/80">
                     <Link
                       href="/login"
@@ -381,7 +387,7 @@ export default function DashboardLayout({
         </header>
 
         {/* Dynamic Page Content */}
-        <main className="flex-1 p-4 md:p-8 bg-[#0f172a] overflow-y-auto">
+        <main className="flex-1 p-4 md:p-8 bg-white overflow-y-auto">
           {children}
         </main>
       </div>

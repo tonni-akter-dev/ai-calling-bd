@@ -25,7 +25,7 @@ export default function AboutPage() {
       {/* 1. Page Header (Hero Banner) */}
       <section className="relative bg-[#0b1329] text-white py-24 text-center overflow-hidden">
         {/* Soft Background Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative z-10 max-w-4xl mx-auto px-4">
           <span className="text-xs font-semibold uppercase tracking-widest text-blue-400 bg-blue-950/80 px-4 py-1.5 rounded-full border border-blue-800/60 inline-block mb-4">
