@@ -1,6 +1,7 @@
 export const tags = {
   users: "Users",
   tickets: "Tickets",
+  contacts: "Contacts",
  
 } as const;
 
