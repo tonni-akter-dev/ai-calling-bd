@@ -23,7 +23,12 @@ import {
   useGetContactsQuery,
   useUpdateContactMutation,
 } from "@/app/redux/features/apis/contactApi";
-import { ContactFormData, ContactMetrics, ContactStatus, ContactListResponse } from "@/app/utils/type";
+import {
+  ContactFormData,
+  ContactMetrics,
+  ContactStatus,
+  ContactListResponse,
+} from "@/app/utils/type";
 import { GROUPS } from "@/app/utils/data";
 
 const EMPTY_FORM: ContactFormData = {
@@ -150,7 +155,10 @@ interface ContactStatsProps {
   loading: boolean;
 }
 
-function ContactStats({ metrics, loading }: ContactStatsProps): React.ReactElement {
+function ContactStats({
+  metrics,
+  loading,
+}: ContactStatsProps): React.ReactElement {
   const totalContacts = metrics?.totalContacts ?? 0;
   const activeReachable = metrics?.activeReachable ?? 0;
   const unsubscribed = metrics?.unsubscribed ?? 0;
@@ -747,13 +755,7 @@ export default function ManageContactsPage() {
 
   const [form, setForm] = useState<ContactFormData>(EMPTY_FORM);
 
-  const {
-    data,
-    isLoading,
-    isFetching,
-    error,
-    refetch,
-  } = useGetContactsQuery({
+  const { data, isLoading, isFetching, error, refetch } = useGetContactsQuery({
     search,
     group: selectedGroupFilter,
   });

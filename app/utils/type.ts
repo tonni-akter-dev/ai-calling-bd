@@ -22,3 +22,42 @@ export interface ContactListResponse {
   contacts: Contact[];
   metrics: ContactMetrics;
 }
+
+
+export interface VoiceFile {
+  id: number;
+  sn: number;
+  name: string;
+  campaignName: string;
+  format: string;
+  size: string;
+  url: string;
+}
+
+export interface VoiceFileResponse {
+  success: boolean;
+  total: number;
+  data: VoiceFile[];
+}
+
+export interface UploadVoiceFileResponse {
+  success: boolean;
+  message: string;
+  data: {
+    id: number;
+    name: string;
+    format: string;
+    size: string;
+    url: string;
+  };
+}
+
+export interface DeleteVoiceFileResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface VoiceFileSearchParams {
+  search?: string;
+  filter?: string;
+}

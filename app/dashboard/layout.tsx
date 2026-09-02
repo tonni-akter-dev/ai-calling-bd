@@ -25,6 +25,7 @@ import {
   History,
 } from "lucide-react";
 import { ReduxProvider } from "../redux/Providers";
+import { Toaster } from 'sonner';
 
 export default function DashboardLayout({
   children,
@@ -134,6 +135,7 @@ export default function DashboardLayout({
 
   return (
 <ReduxProvider>
+   <Toaster />
        <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans antialiased flex flex-col">
       {/* Mobile Sidebar Overlay */}
       <div
