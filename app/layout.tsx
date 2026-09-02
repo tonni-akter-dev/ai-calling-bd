@@ -1,5 +1,6 @@
 import "./globals.css";
 import React from "react";
+import { ReduxProvider } from "./redux/Providers";
 
 export const metadata = {
   title: "  AI Call BD - Business Communication Solutions",
@@ -13,7 +14,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <ReduxProvider>{children} </ReduxProvider>
+     </body>
     </html>
   );
 }

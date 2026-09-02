@@ -5,7 +5,7 @@ import { tagsArray } from "./tags";
 const baseApi = createApi({
   reducerPath: "api",
   baseQuery: axiosBaseQuery({
-    baseUrl: `https://airplane.ictbangladesh.bd/api/v1`,
+    baseUrl: `http://localhost:5000/api`,
   }),
 
   tagTypes: tagsArray,

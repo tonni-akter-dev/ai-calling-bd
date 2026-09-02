@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import baseApi from "../../baseApi";
 
 const api = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     register: builder.mutation({
       query: ({ data }) => ({
-        url: "/auth/register",
+        url: "/auth/signup",
         method: "POST",
         data,
       }),
@@ -43,13 +42,7 @@ const api = baseApi.injectEndpoints({
       }),
     }),
 
-    deactivateUser: builder.mutation<void, number | string>({
-      query: (userId) => ({
-        url: `/auth/users/${userId}/deactivate`,
-        method: "PATCH",
-      }),
-      invalidatesTags: ["Users"],
-    }),
+  
   }),
 });
 
@@ -58,6 +51,5 @@ export const {
   useGetMeQuery,
   useGetAllUsersQuery,
   useLoginMutation,
-  useDeactivateUserMutation,
   useLogoutMutation,
 } = api;

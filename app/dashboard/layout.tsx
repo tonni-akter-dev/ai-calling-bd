@@ -24,6 +24,7 @@ import {
   Wallet,
   History,
 } from "lucide-react";
+import { ReduxProvider } from "../redux/Providers";
 
 export default function DashboardLayout({
   children,
@@ -132,7 +133,8 @@ export default function DashboardLayout({
   ];
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans antialiased flex flex-col">
+<ReduxProvider>
+       <div className="min-h-screen bg-[#0f172a] text-slate-100 font-sans antialiased flex flex-col">
       {/* Mobile Sidebar Overlay */}
       <div
         className={`fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm lg:hidden transition-opacity duration-300 ${
@@ -392,5 +394,6 @@ export default function DashboardLayout({
         </main>
       </div>
     </div>
+    </ReduxProvider>
   );
 }

@@ -1,3 +1,5 @@
+import { ReduxProvider } from "../redux/Providers";
+
 export default function AuthLayout({
   children,
 }: {
@@ -5,7 +7,7 @@ export default function AuthLayout({
 }) {
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center">
-      {children}
+      <ReduxProvider>{children}</ReduxProvider>
     </div>
   );
 }
