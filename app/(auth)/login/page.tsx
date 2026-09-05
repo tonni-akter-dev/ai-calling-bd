@@ -151,7 +151,7 @@ export default function LoginPage() {
             HEADER
         ========================================= */}
 
-        <div className="bg-gradient-to-r from-blue-600 to-indigo-600 px-8 py-8 text-center text-white relative">
+        <div className="bg-linear-to-r from-blue-600 to-indigo-600 px-8 py-8 text-center text-white relative">
 
           <div
             className="absolute inset-x-0 bottom-0 h-4 bg-[#0f172a]"

@@ -9,8 +9,6 @@ const navItems = [
   { name: "About", href: "/about" },
   { name: "Services", href: "/service" },
   { name: "Pricing", href: "/pricing" },
-  { name: "Caller Tune", href: "/caller-tune" },
-  { name: "IP Number", href: "/ip-number" },
   { name: "Blog", href: "/blog" },
   { name: "FAQ", href: "/faq" },
   { name: "Contact", href: "/contact" },
@@ -20,11 +18,11 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full border-b border-slate-200 bg-white/95 backdrop-blur-xl">
-      <div className="container mx-auto flex h-19.5 items-center justify-between px-4 lg:px-8">
+    <header className="fixed top-0 left-0 z-50 w-full mt-5 ">
+      <div className="container mx-auto flex h-19.5 items-center  border border-slate-200 bg-white rounded-full justify-between px-4 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 shadow-lg shadow-blue-600/20">
+          <div className="flex h-11 w-11 items-center justify-center   shadow-md rounded-xl bg-blue-600 shadow-blue-600/20">
             <PhoneCall className="h-5 w-5 text-white" />
           </div>
 
