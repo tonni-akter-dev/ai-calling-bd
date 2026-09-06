@@ -1020,11 +1020,8 @@ function TicketRow({
           {ticket.type}
         </span>
       </td>
-
       {/* SUBJECT */}
-
-      <td className="max-w-[220px] px-5 py-4">
-
+      <td className="max-w-55 px-5 py-4">
         <p
           className="truncate text-sm font-semibold text-slate-800"
           title={

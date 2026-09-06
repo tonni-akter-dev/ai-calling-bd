@@ -49,7 +49,6 @@ export default function SubscriptionsPage() {
     };
   }, [subscriptions]);
 
-  // Loading state
   if (isLoading) {
     return (
       <div className="mx-auto max-w-375 space-y-6">
@@ -89,7 +88,7 @@ export default function SubscriptionsPage() {
 
   return (
     <div className="mx-auto max-w-375 space-y-6">
-      <div>2
+      <div>
         <h1 className="text-2xl font-bold text-slate-900">
           Subscriptions
         </h1>

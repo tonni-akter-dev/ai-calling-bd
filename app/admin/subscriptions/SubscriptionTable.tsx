@@ -135,7 +135,7 @@ export default function SubscriptionTable({
 
   return (
     <div className="overflow-x-auto">
-      <table className="w-full min-w-[1100px] text-left">
+      <table className="w-full min-w-275 text-left">
         <thead>
           <tr className="border-b border-slate-100 bg-slate-50/70">
             <th className="px-5 py-3">

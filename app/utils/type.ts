@@ -84,3 +84,33 @@ export interface Subscription {
     role: string;
   }>;
 }
+
+
+export type TicketStatus = "Open" | "In Progress"  | "Resolved" | "Closed";
+export type TicketPriority = "Low" | "Medium" | "High" | "Urgent";
+export type TicketCategory = "Complaint" | "Request" | "Billing";
+
+export interface ApiTicket {
+  id: string;
+  ticketId: number;
+  companyId: number;
+  companyName: string;
+  companyEmail: string;
+  user: {
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+  } | null;
+  category: TicketCategory;
+  type: string;
+  subject: string;
+  priority: TicketPriority;
+  status: TicketStatus;
+  description: string;
+  attachment: string | null;
+  resolutionNote: string | null;
+  messages: number;
+  createdAt: string;
+  updatedAt: string;
+}
