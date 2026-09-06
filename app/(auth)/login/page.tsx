@@ -21,33 +21,24 @@ import { useLoginMutation } from "@/app/redux/features/apis/auth-api";
 export default function LoginPage() {
   const router = useRouter();
 
-  const [showPassword, setShowPassword] =
-    useState(false);
-
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
 
-  const [login, { isLoading }] =
-    useLoginMutation();
+  const [login, { isLoading }] = useLoginMutation();
 
-  const handleSubmit = async (
-    e: React.FormEvent
-  ) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!formData.username.trim()) {
-      toast.error(
-        "Please enter your username or email."
-      );
+      toast.error("Please enter your username or email.");
       return;
     }
 
     if (!formData.password) {
-      toast.error(
-        "Please enter your password."
-      );
+      toast.error("Please enter your password.");
       return;
     }
 
@@ -59,27 +50,18 @@ export default function LoginPage() {
         },
       }).unwrap();
 
-      console.log(
-        "Login response:",
-        response
-      );
+      console.log("Login response:", response);
 
       // ==========================================
       // SAVE ACCESS TOKEN IN COOKIE
       // ==========================================
 
       if (response?.token) {
-        Cookies.set(
-          "accessToken",
-          response.token,
-          {
-            expires: 7,
-            secure:
-              process.env.NODE_ENV ===
-              "production",
-            sameSite: "lax",
-          }
-        );
+        Cookies.set("accessToken", response.token, {
+          expires: 7,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+        });
       }
 
       // ==========================================
@@ -92,9 +74,7 @@ export default function LoginPage() {
           JSON.stringify(response.user),
           {
             expires: 7,
-            secure:
-              process.env.NODE_ENV ===
-              "production",
+            secure: process.env.NODE_ENV === "production",
             sameSite: "lax",
           }
         );
@@ -104,21 +84,27 @@ export default function LoginPage() {
       // SUCCESS MESSAGE
       // ==========================================
 
-      toast.success(
-        response?.message ||
-          "Login successful!"
-      );
+      toast.success(response?.message || "Login successful!");
 
       // ==========================================
-      // REDIRECT TO DASHBOARD
+      // REDIRECT BASED ON USER ROLE
       // ==========================================
 
-      router.push("/dashboard");
+      const userRole = response?.user?.role;
+
+      if (userRole === "super_admin") {
+        // Super Admin redirects to /admin
+        router.push("/admin");
+      } else if (userRole === "admin") {
+        // Admin redirects to /admin as well
+        router.push("/admin");
+      } else {
+        // Regular users redirect to /dashboard
+        router.push("/dashboard");
+      }
+
     } catch (error: any) {
-      console.error(
-        "Login error:",
-        error
-      );
+      console.error("Login error:", error);
 
       const errorMessage =
         error?.data?.error ||
@@ -156,8 +142,7 @@ export default function LoginPage() {
           <div
             className="absolute inset-x-0 bottom-0 h-4 bg-[#0f172a]"
             style={{
-              clipPath:
-                "ellipse(75% 100% at 50% 100%)",
+              clipPath: "ellipse(75% 100% at 50% 100%)",
             }}
           />
 
@@ -211,8 +196,7 @@ export default function LoginPage() {
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      username:
-                        e.target.value,
+                      username: e.target.value,
                     })
                   }
                   className="w-full pl-10 pr-4 py-3 bg-slate-900/80 border border-slate-700/80 rounded-xl text-xs md:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
@@ -252,11 +236,7 @@ export default function LoginPage() {
                 </div>
 
                 <input
-                  type={
-                    showPassword
-                      ? "text"
-                      : "password"
-                  }
+                  type={showPassword ? "text" : "password"}
                   required
                   autoComplete="current-password"
                   placeholder="Enter your password"
@@ -264,8 +244,7 @@ export default function LoginPage() {
                   onChange={(e) =>
                     setFormData({
                       ...formData,
-                      password:
-                        e.target.value,
+                      password: e.target.value,
                     })
                   }
                   className="w-full pl-10 pr-10 py-3 bg-slate-900/80 border border-slate-700/80 rounded-xl text-xs md:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition"
@@ -273,16 +252,8 @@ export default function LoginPage() {
 
                 <button
                   type="button"
-                  aria-label={
-                    showPassword
-                      ? "Hide password"
-                      : "Show password"
-                  }
-                  onClick={() =>
-                    setShowPassword(
-                      !showPassword
-                    )
-                  }
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-200 transition"
                 >
                   {showPassword ? (

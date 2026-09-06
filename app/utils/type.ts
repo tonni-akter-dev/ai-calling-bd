@@ -61,3 +61,26 @@ export interface VoiceFileSearchParams {
   search?: string;
   filter?: string;
 }
+export interface Subscription {
+  id: number;
+  company_id: number;
+  plan_id: number;
+  status: string;
+  calls_used_this_period: number;
+  current_period_start: string;
+  current_period_end: string;
+  created_at: string;
+  updated_at: string;
+  plan_name: string;
+  price_bdt: number;
+  monthly_call_limit: number;
+  max_concurrent_calls: number;
+  company_name: string;
+  company_email: string;
+  users: Array<{
+    id: number;
+    name: string;
+    email: string;
+    role: string;
+  }>;
+}

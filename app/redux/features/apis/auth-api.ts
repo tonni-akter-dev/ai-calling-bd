@@ -10,21 +10,6 @@ const api = baseApi.injectEndpoints({
       }),
     }),
 
-    getMe: builder.query({
-      query: () => ({
-        url: "/auth/me",
-        method: "GET",
-      }),
-      providesTags: ["Users"],
-    }),
-
-    getAllUsers: builder.query({
-      query: () => ({
-        url: "/auth/users",
-        method: "GET",
-      }),
-      providesTags: ["Users"],
-    }),
 
     login: builder.mutation({
       query: ({ data }) => ({
@@ -48,8 +33,6 @@ const api = baseApi.injectEndpoints({
 
 export const {
   useRegisterMutation,
-  useGetMeQuery,
-  useGetAllUsersQuery,
   useLoginMutation,
   useLogoutMutation,
 } = api;

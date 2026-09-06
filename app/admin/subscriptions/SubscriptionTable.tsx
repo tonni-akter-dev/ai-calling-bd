@@ -6,73 +6,132 @@ import {
   MoreHorizontal,
   CheckCircle2,
   AlertCircle,
+  XCircle,
 } from "lucide-react";
 
-const data = [
-  {
-    id: "1001",
-    name: "Rahim Ahmed",
-    email: "rahim@example.com",
-    phone: "01712345678",
-    plan: "Business",
-    price: "৳2,499",
-    balance: "৳12,500",
-    calls: "2,480",
-    expires: "01 Oct 2026",
-    status: "Active",
-  },
-  {
-    id: "1002",
-    name: "Karim Hasan",
-    email: "karim@example.com",
-    phone: "01812345678",
-    plan: "Basic",
-    price: "৳999",
-    balance: "৳3,200",
-    calls: "840",
-    expires: "15 Sep 2026",
-    status: "Active",
-  },
-  {
-    id: "1003",
-    name: "ABC Limited",
-    email: "admin@abc.com",
-    phone: "01912345678",
-    plan: "Enterprise",
-    price: "৳9,999",
-    balance: "৳85,000",
-    calls: "24,850",
-    expires: "28 Sep 2026",
-    status: "Active",
-  },
-  {
-    id: "1004",
-    name: "Nadia Enterprise",
-    email: "nadia@example.com",
-    phone: "01612345678",
-    plan: "Business",
-    price: "৳2,499",
-    balance: "৳850",
-    calls: "1,240",
-    expires: "07 Sep 2026",
-    status: "Expiring",
-  },
-];
+interface Subscription {
+  id: number;
+  company_id: number;
+  plan_id: number;
+  status: string;
+  calls_used_this_period: number;
+  current_period_start: string;
+  current_period_end: string;
+  created_at: string;
+  updated_at: string;
+  plan_name: string;
+  price_bdt: number;
+  monthly_call_limit: number;
+  max_concurrent_calls: number;
+  company_name: string;
+  company_email: string;
+  user_count?: number;
+}
+
+interface SubscriptionTableProps {
+  search: string;
+  subscriptions: Subscription[];
+}
 
 export default function SubscriptionTable({
   search,
-}: {
-  search: string;
-}) {
-  const filtered = data.filter((item) => {
-    const value = search.toLowerCase();
-
+  subscriptions = []
+}: SubscriptionTableProps) {
+  // Filter subscriptions based on search
+  const filtered = subscriptions.filter((sub) => {
+    const searchLower = search.toLowerCase().trim();
+    if (!searchLower) return true;
+    
     return (
-      item.name.toLowerCase().includes(value) ||
-      item.email.toLowerCase().includes(value) ||
-      item.phone.includes(value)
+      sub.company_name?.toLowerCase().includes(searchLower) ||
+      sub.company_email?.toLowerCase().includes(searchLower) ||
+      sub.plan_name?.toLowerCase().includes(searchLower) ||
+      sub.id?.toString().includes(searchLower)
     );
   });
+
+  // Get status badge
+  const getStatusBadge = (status: string, endDate: string) => {
+    const now = new Date();
+    const expiry = new Date(endDate);
+    const daysUntilExpiry = Math.ceil((expiry.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
+
+    if (status === "expired" || (status === "active" && daysUntilExpiry < 0)) {
+      return {
+        label: "Expired",
+        icon: XCircle,
+        className: "text-red-600",
+        iconClass: "h-3.5 w-3.5"
+      };
+    } else if (status === "active" && daysUntilExpiry <= 7) {
+      return {
+        label: "Expiring",
+        icon: AlertCircle,
+        className: "text-orange-600",
+        iconClass: "h-3.5 w-3.5"
+      };
+    } else if (status === "active") {
+      return {
+        label: "Active",
+        icon: CheckCircle2,
+        className: "text-emerald-600",
+        iconClass: "h-3.5 w-3.5"
+      };
+    }
+    return {
+      label: status || "Unknown",
+      icon: XCircle,
+      className: "text-gray-600",
+      iconClass: "h-3.5 w-3.5"
+    };
+  };
+
+  // Format date
+  const formatDate = (dateString: string) => {
+    try {
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      });
+    } catch {
+      return 'Invalid date';
+    }
+  };
+
+  // Get initials for avatar
+  const getInitials = (name: string) => {
+    if (!name) return '?';
+    return name
+      .split(' ')
+      .map(word => word[0])
+      .join('')
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
+  // Format number with commas
+  const formatNumber = (num: number) => {
+    return num?.toLocaleString() || '0';
+  };
+
+  // Format price
+  const formatPrice = (price: number) => {
+    return `৳${price?.toLocaleString() || '0'}`;
+  };
+
+  if (filtered.length === 0) {
+    return (
+      <div className="py-16 text-center">
+        <p className="text-sm font-medium text-slate-600">
+          {subscriptions.length === 0 
+            ? "No subscriptions available" 
+            : `No subscriptions found matching "${search}"`}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="overflow-x-auto">
@@ -104,101 +163,91 @@ export default function SubscriptionTable({
         </thead>
 
         <tbody>
-          {filtered.map((item) => (
-            <tr
-              key={item.id}
-              className="border-b border-slate-100 last:border-0 hover:bg-slate-50/70"
-            >
-              <td className="px-5 py-4">
-                <input type="checkbox" />
-              </td>
+          {filtered.map((sub) => {
+            const status = getStatusBadge(sub.status, sub.current_period_end);
+            const StatusIcon = status.icon;
 
-              <td className="px-4 py-4">
-                <Link
-                  href={`/admin/subscriptions/${item.id}`}
-                  className="flex items-center gap-3"
-                >
-                  <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-50 text-xs font-bold text-blue-600">
-                    {item.name.charAt(0)}
-                  </div>
+            return (
+              <tr
+                key={sub.id}
+                className="border-b border-slate-100 last:border-0 hover:bg-slate-50/70"
+              >
+                <td className="px-5 py-4">
+                  <input type="checkbox" />
+                </td>
 
-                  <div>
-                    <p className="text-sm font-semibold text-slate-800 hover:text-blue-600">
-                      {item.name}
-                    </p>
-
-                    <p className="text-[11px] text-slate-400">
-                      {item.email}
-                    </p>
-                  </div>
-                </Link>
-              </td>
-
-              <td className="px-4 py-4">
-                <span className="rounded-md bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-600">
-                  {item.plan}
-                </span>
-              </td>
-
-              <td className="px-4 py-4 text-sm font-semibold text-slate-700">
-                {item.price}
-                <span className="text-[10px] font-normal text-slate-400">
-                  /month
-                </span>
-              </td>
-
-              <td className="px-4 py-4 text-sm font-semibold text-slate-700">
-                {item.balance}
-              </td>
-
-              <td className="px-4 py-4 text-sm text-slate-600">
-                {item.calls}
-              </td>
-
-              <td className="px-4 py-4 text-xs text-slate-500">
-                {item.expires}
-              </td>
-
-              <td className="px-4 py-4">
-                {item.status === "Active" ? (
-                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600">
-                    <CheckCircle2 className="h-3.5 w-3.5" />
-                    Active
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-orange-600">
-                    <AlertCircle className="h-3.5 w-3.5" />
-                    Expiring
-                  </span>
-                )}
-              </td>
-
-              <td className="px-4 py-4">
-                <div className="flex items-center gap-1">
+                <td className="px-4 py-4">
                   <Link
-                    href={`/admin/subscriptions/${item.id}`}
-                    className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-blue-50 hover:text-blue-600"
+                    href={`/admin/subscriptions/${sub.id}`}
+                    className="flex items-center gap-3"
                   >
-                    <Eye className="h-4 w-4" />
-                  </Link>
+                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-blue-50 text-xs font-bold text-blue-600">
+                      {getInitials(sub.company_name)}
+                    </div>
 
-                  <button className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100">
-                    <MoreHorizontal className="h-4 w-4" />
-                  </button>
-                </div>
-              </td>
-            </tr>
-          ))}
+                    <div>
+                      <p className="text-sm font-semibold text-slate-800 hover:text-blue-600">
+                        {sub.company_name}
+                      </p>
+
+                      <p className="text-[11px] text-slate-400">
+                        {sub.company_email}
+                      </p>
+                    </div>
+                  </Link>
+                </td>
+
+                <td className="px-4 py-4">
+                  <span className="rounded-md bg-blue-50 px-2.5 py-1 text-xs font-semibold text-blue-600">
+                    {sub.plan_name}
+                  </span>
+                </td>
+
+                <td className="px-4 py-4 text-sm font-semibold text-slate-700">
+                  {formatPrice(sub.price_bdt)}
+                  <span className="text-[10px] font-normal text-slate-400">
+                    /month
+                  </span>
+                </td>
+
+                <td className="px-4 py-4 text-sm font-semibold text-slate-700">
+                  ৳{formatNumber((sub.price_bdt || 0) * 5)}
+                </td>
+
+                <td className="px-4 py-4 text-sm text-slate-600">
+                  {formatNumber(sub.calls_used_this_period || 0)}
+                </td>
+
+                <td className="px-4 py-4 text-xs text-slate-500">
+                  {formatDate(sub.current_period_end)}
+                </td>
+
+                <td className="px-4 py-4">
+                  <span className={`inline-flex items-center gap-1.5 text-xs font-semibold ${status.className}`}>
+                    <StatusIcon className={status.iconClass} />
+                    {status.label}
+                  </span>
+                </td>
+
+                <td className="px-4 py-4">
+                  <div className="flex items-center gap-1">
+                    <Link
+                      href={`/admin/subscriptions/${sub.id}`}
+                      className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-blue-50 hover:text-blue-600"
+                    >
+                      <Eye className="h-4 w-4" />
+                    </Link>
+
+                    <button className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100">
+                      <MoreHorizontal className="h-4 w-4" />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
-
-      {filtered.length === 0 && (
-        <div className="py-16 text-center">
-          <p className="text-sm font-medium text-slate-600">
-            No subscriptions found
-          </p>
-        </div>
-      )}
     </div>
   );
 }
