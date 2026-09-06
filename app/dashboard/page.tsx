@@ -20,9 +20,7 @@ import {
 } from "lucide-react";
 
 export default function DashboardOverviewPage() {
-  const [showNotice, setShowNotice] = useState(true);
 
-  // Top gradient stat cards matching top row
   const topStats = [
     {
       title: "Total Voice Call Sent",
@@ -54,7 +52,6 @@ export default function DashboardOverviewPage() {
     },
   ];
 
-  // Middle light pastel cards matching second row
   const middleStats = [
     {
       title: "Active Calls (Live)",
@@ -90,7 +87,6 @@ export default function DashboardOverviewPage() {
     },
   ];
 
-  // Bottom outline cards matching third row
   const bottomStats = [
     {
       title: "Total Contact",
@@ -119,10 +115,7 @@ export default function DashboardOverviewPage() {
   ];
 
   return (
-    <div className="space-y-5 max-w-7xl mx-auto bg-slate-100/60 min-h-screen p-4 md:p-6 text-slate-800">
-      {/* Top Notice Bar */}
-     
-      {/* Row 1: Top Gradient Stat Cards */}
+    <div className="space-y-5 mx-auto bg-slate-100/60 min-h-screen p-4 md:p-6 text-slate-800">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {topStats.map((stat, idx) => {
           const Icon = stat.icon;

@@ -1,0 +1,1079 @@
+"use client";
+
+import React, { useState } from "react";
+import {
+  Settings,
+  Globe,
+  PhoneCall,
+  CreditCard,
+  Bell,
+  ShieldCheck,
+  Database,
+  Save,
+  CheckCircle2,
+  Eye,
+  EyeOff,
+  AlertTriangle,
+  Lock,
+  Mail,
+  Smartphone,
+  Clock,
+  Zap,
+  Wallet,
+  KeyRound,
+  RefreshCw,
+} from "lucide-react";
+
+import PageHeader from "../components/PageHeader";
+
+type SettingsSection =
+  | "general"
+  | "calls"
+  | "payments"
+  | "notifications"
+  | "security"
+  | "system";
+
+export default function SettingsPage() {
+  const [activeSection, setActiveSection] =
+    useState<SettingsSection>("general");
+
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = () => {
+    setSaved(true);
+
+    setTimeout(() => {
+      setSaved(false);
+    }, 2500);
+  };
+
+  return (
+    <div className="space-y-6 pb-10">
+      <PageHeader
+        title="Settings"
+        description="Manage platform configuration, calls, payments, notifications and security."
+      />
+
+      {/* Save notification */}
+      {saved && (
+        <div className="flex items-center gap-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+          <CheckCircle2 className="h-5 w-5" />
+          Settings saved successfully.
+        </div>
+      )}
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[250px_minmax(0,1fr)]">
+        {/* Sidebar */}
+        <SettingsSidebar
+          activeSection={activeSection}
+          onChange={setActiveSection}
+        />
+
+        {/* Content */}
+        <div className="min-w-0">
+          {activeSection === "general" && (
+            <GeneralSettings onSave={handleSave} />
+          )}
+
+          {activeSection === "calls" && (
+            <CallSettings onSave={handleSave} />
+          )}
+
+          {activeSection === "payments" && (
+            <PaymentSettings onSave={handleSave} />
+          )}
+
+    
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   SETTINGS SIDEBAR
+========================================================= */
+
+function SettingsSidebar({
+  activeSection,
+  onChange,
+}: {
+  activeSection: SettingsSection;
+  onChange: (section: SettingsSection) => void;
+}) {
+  const items: {
+    id: SettingsSection;
+    label: string;
+    description: string;
+    icon: React.ReactNode;
+  }[] = [
+    {
+      id: "general",
+      label: "General",
+      description: "Platform information",
+      icon: <Globe className="h-4 w-4" />,
+    },
+    {
+      id: "calls",
+      label: "Call Settings",
+      description: "Voice call configuration",
+      icon: <PhoneCall className="h-4 w-4" />,
+    },
+    {
+      id: "payments",
+      label: "Payments",
+      description: "Wallet & bKash",
+      icon: <CreditCard className="h-4 w-4" />,
+    },
+
+  ];
+
+  return (
+    <div className="h-fit rounded-2xl border border-slate-200 bg-white p-2">
+      <div className="px-3 py-3">
+        <div className="flex items-center gap-2">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-white">
+            <Settings className="h-4 w-4" />
+          </div>
+
+          <div>
+            <p className="text-sm font-semibold text-slate-900">
+              Settings
+            </p>
+            <p className="text-xs text-slate-400">
+              Platform configuration
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-1">
+        {items.map((item) => {
+          const active = activeSection === item.id;
+
+          return (
+            <button
+              key={item.id}
+              onClick={() => onChange(item.id)}
+              className={`flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition ${
+                active
+                  ? "bg-slate-900 text-white"
+                  : "text-slate-600 hover:bg-slate-50"
+              }`}
+            >
+              <div
+                className={`flex h-9 w-9 items-center justify-center rounded-lg ${
+                  active
+                    ? "bg-white/10 text-white"
+                    : "bg-slate-100 text-slate-500"
+                }`}
+              >
+                {item.icon}
+              </div>
+
+              <div className="min-w-0">
+                <p
+                  className={`text-sm font-semibold ${
+                    active ? "text-white" : "text-slate-700"
+                  }`}
+                >
+                  {item.label}
+                </p>
+
+                <p
+                  className={`mt-0.5 truncate text-xs ${
+                    active ? "text-slate-300" : "text-slate-400"
+                  }`}
+                >
+                  {item.description}
+                </p>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   GENERAL SETTINGS
+========================================================= */
+
+function GeneralSettings({
+  onSave,
+}: {
+  onSave: () => void;
+}) {
+  const [siteName, setSiteName] = useState("VoiceCall BD");
+  const [siteUrl, setSiteUrl] = useState("https://voicecallbd.com");
+  const [supportEmail, setSupportEmail] =
+    useState("support@voicecallbd.com");
+  const [supportPhone, setSupportPhone] =
+    useState("01700000000");
+  const [timezone, setTimezone] =
+    useState("Asia/Dhaka");
+
+  return (
+    <SettingsCard
+      title="General Settings"
+      description="Configure basic information about your platform."
+      icon={<Globe className="h-5 w-5" />}
+      onSave={onSave}
+    >
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <InputField
+          label="Platform Name"
+          value={siteName}
+          onChange={setSiteName}
+          placeholder="Enter platform name"
+        />
+
+        <InputField
+          label="Platform URL"
+          value={siteUrl}
+          onChange={setSiteUrl}
+          placeholder="https://example.com"
+        />
+
+        <InputField
+          label="Support Email"
+          value={supportEmail}
+          onChange={setSupportEmail}
+          placeholder="support@example.com"
+          icon={<Mail className="h-4 w-4" />}
+        />
+
+        <InputField
+          label="Support Phone"
+          value={supportPhone}
+          onChange={setSupportPhone}
+          placeholder="01XXXXXXXXX"
+          icon={<Smartphone className="h-4 w-4" />}
+        />
+
+        <SelectField
+          label="Timezone"
+          value={timezone}
+          onChange={setTimezone}
+          options={[
+            "Asia/Dhaka",
+            "Asia/Kolkata",
+            "Asia/Dubai",
+            "UTC",
+          ]}
+        />
+
+        <SelectField
+          label="Default Language"
+          value="English"
+          onChange={() => {}}
+          options={[
+            "English",
+            "Bangla",
+          ]}
+        />
+      </div>
+
+      <div className="mt-6 border-t border-slate-200 pt-6">
+        <h3 className="text-sm font-semibold text-slate-900">
+          Platform Status
+        </h3>
+
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <ToggleCard
+            title="Platform Enabled"
+            description="Allow customers to use the platform."
+            defaultChecked
+          />
+
+          <ToggleCard
+            title="New Registrations"
+            description="Allow new customers to register."
+            defaultChecked
+          />
+        </div>
+      </div>
+    </SettingsCard>
+  );
+}
+
+/* =========================================================
+   CALL SETTINGS
+========================================================= */
+
+function CallSettings({
+  onSave,
+}: {
+  onSave: () => void;
+}) {
+  const [maxCalls, setMaxCalls] = useState("100");
+  const [callTimeout, setCallTimeout] = useState("30");
+  const [retryAttempts, setRetryAttempts] = useState("2");
+
+  return (
+    <SettingsCard
+      title="Call Settings"
+      description="Configure bulk voice calling behavior and limits."
+      icon={<PhoneCall className="h-5 w-5" />}
+      onSave={onSave}
+    >
+      <div className="rounded-xl border border-blue-100 bg-blue-50 p-4">
+        <div className="flex items-start gap-3">
+          <div className="rounded-lg bg-blue-100 p-2 text-blue-600">
+            <Zap className="h-4 w-4" />
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-blue-900">
+              Voice Call Configuration
+            </h3>
+
+            <p className="mt-1 text-xs leading-5 text-blue-700">
+              These settings control how bulk campaigns are processed
+              across the platform.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+        <InputField
+          label="Maximum Numbers Per Campaign"
+          value={maxCalls}
+          onChange={setMaxCalls}
+          type="number"
+          icon={<PhoneCall className="h-4 w-4" />}
+        />
+
+        <InputField
+          label="Call Timeout (Seconds)"
+          value={callTimeout}
+          onChange={setCallTimeout}
+          type="number"
+          icon={<Clock className="h-4 w-4" />}
+        />
+
+        <InputField
+          label="Retry Attempts"
+          value={retryAttempts}
+          onChange={setRetryAttempts}
+          type="number"
+          icon={<RefreshCw className="h-4 w-4" />}
+        />
+
+        <SelectField
+          label="Call Queue Mode"
+          value="Sequential"
+          onChange={() => {}}
+          options={[
+            "Sequential",
+            "Parallel",
+            "Auto",
+          ]}
+        />
+      </div>
+
+      <div className="mt-6 space-y-4 border-t border-slate-200 pt-6">
+        <ToggleCard
+          title="Allow Bulk Calling"
+          description="Allow customers to start bulk voice campaigns."
+          defaultChecked
+        />
+
+        <ToggleCard
+          title="Automatic Retry"
+          description="Retry calls that fail or are temporarily unavailable."
+          defaultChecked
+        />
+
+        <ToggleCard
+          title="Call Recording"
+          description="Enable recording where supported and legally permitted."
+          defaultChecked
+        />
+
+        <ToggleCard
+          title="Prevent Duplicate Numbers"
+          description="Automatically remove duplicate numbers from campaigns."
+          defaultChecked
+        />
+      </div>
+    </SettingsCard>
+  );
+}
+
+/* =========================================================
+   PAYMENT SETTINGS
+========================================================= */
+
+function PaymentSettings({
+  onSave,
+}: {
+  onSave: () => void;
+}) {
+  const [bkashNumber, setBkashNumber] =
+    useState("01700000000");
+
+  const [minimumPayment, setMinimumPayment] =
+    useState("100");
+
+  const [creditRate, setCreditRate] =
+    useState("1");
+
+  return (
+    <SettingsCard
+      title="Payment & Wallet Settings"
+      description="Configure bKash payments, credits and platform wallet."
+      icon={<CreditCard className="h-5 w-5" />}
+      onSave={onSave}
+    >
+      <div className="rounded-xl border border-emerald-100 bg-emerald-50 p-4">
+        <div className="flex items-start gap-3">
+          <div className="rounded-lg bg-emerald-100 p-2 text-emerald-600">
+            <Wallet className="h-4 w-4" />
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-emerald-900">
+              Platform Wallet
+            </h3>
+
+            <p className="mt-1 text-xs leading-5 text-emerald-700">
+              Customer payments are added to the platform wallet.
+              Only Super Admin can withdraw platform funds.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+        <InputField
+          label="bKash Merchant / Payment Number"
+          value={bkashNumber}
+          onChange={setBkashNumber}
+          placeholder="01XXXXXXXXX"
+          icon={<Smartphone className="h-4 w-4" />}
+        />
+
+        <InputField
+          label="Minimum Payment"
+          value={minimumPayment}
+          onChange={setMinimumPayment}
+          type="number"
+          icon={<CreditCard className="h-4 w-4" />}
+        />
+
+        <InputField
+          label="Credits Per BDT"
+          value={creditRate}
+          onChange={setCreditRate}
+          type="number"
+          icon={<Wallet className="h-4 w-4" />}
+        />
+
+        <SelectField
+          label="Currency"
+          value="BDT"
+          onChange={() => {}}
+          options={[
+            "BDT",
+            "USD",
+          ]}
+        />
+      </div>
+
+      <div className="mt-6 border-t border-slate-200 pt-6">
+        <h3 className="text-sm font-semibold text-slate-900">
+          Payment Methods
+        </h3>
+
+        <div className="mt-4 space-y-4">
+          <ToggleCard
+            title="bKash"
+            description="Allow customers to add credits using bKash."
+            defaultChecked
+          />
+
+          <ToggleCard
+            title="Manual Payment"
+            description="Allow admin-approved manual payment requests."
+            defaultChecked
+          />
+
+          <ToggleCard
+            title="Automatic Payment Verification"
+            description="Automatically verify supported payment transactions."
+            defaultChecked
+          />
+        </div>
+      </div>
+
+      <div className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4">
+        <div className="flex items-start gap-3">
+          <AlertTriangle className="mt-0.5 h-5 w-5 text-amber-600" />
+
+          <div>
+            <p className="text-sm font-semibold text-amber-900">
+              Withdrawal Permission
+            </p>
+
+            <p className="mt-1 text-xs leading-5 text-amber-700">
+              Platform wallet withdrawal must remain restricted to
+              Super Admin accounts.
+            </p>
+          </div>
+        </div>
+      </div>
+    </SettingsCard>
+  );
+}
+
+/* =========================================================
+   NOTIFICATION SETTINGS
+========================================================= */
+
+function NotificationSettings({
+  onSave,
+}: {
+  onSave: () => void;
+}) {
+  return (
+    <SettingsCard
+      title="Notification Settings"
+      description="Control customer and administrator notifications."
+      icon={<Bell className="h-5 w-5" />}
+      onSave={onSave}
+    >
+      <div className="space-y-4">
+        <ToggleCard
+          title="New User Registration"
+          description="Notify administrators when a new user registers."
+          defaultChecked
+        />
+
+        <ToggleCard
+          title="Payment Received"
+          description="Notify admins when a customer makes a payment."
+          defaultChecked
+        />
+
+        <ToggleCard
+          title="Campaign Completed"
+          description="Notify customers when their campaign is completed."
+          defaultChecked
+        />
+
+        <ToggleCard
+          title="Campaign Failed"
+          description="Notify customers when a campaign fails."
+          defaultChecked
+        />
+
+        <ToggleCard
+          title="Low Credit Balance"
+          description="Alert customers when their credit balance is low."
+          defaultChecked
+        />
+
+        <ToggleCard
+          title="New Support Ticket"
+          description="Notify support admins when a new ticket is created."
+          defaultChecked
+        />
+
+        <ToggleCard
+          title="Admin Security Alerts"
+          description="Notify Super Admin about important security events."
+          defaultChecked
+        />
+      </div>
+
+      <div className="mt-6 border-t border-slate-200 pt-6">
+        <h3 className="text-sm font-semibold text-slate-900">
+          Notification Channels
+        </h3>
+
+        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <ToggleCard
+            title="Email Notifications"
+            description="Send notifications through email."
+            defaultChecked
+          />
+
+          <ToggleCard
+            title="SMS Notifications"
+            description="Send important alerts through SMS."
+            defaultChecked
+          />
+        </div>
+      </div>
+    </SettingsCard>
+  );
+}
+
+/* =========================================================
+   SECURITY SETTINGS
+========================================================= */
+
+function SecuritySettings({
+  onSave,
+}: {
+  onSave: () => void;
+}) {
+  const [sessionTimeout, setSessionTimeout] =
+    useState("60");
+
+  const [showSecret, setShowSecret] =
+    useState(false);
+
+  return (
+    <SettingsCard
+      title="Security Settings"
+      description="Manage authentication, sessions and administrator security."
+      icon={<ShieldCheck className="h-5 w-5" />}
+      onSave={onSave}
+    >
+      <div className="rounded-xl border border-violet-100 bg-violet-50 p-4">
+        <div className="flex items-start gap-3">
+          <div className="rounded-lg bg-violet-100 p-2 text-violet-600">
+            <Lock className="h-4 w-4" />
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-violet-900">
+              Administrator Security
+            </h3>
+
+            <p className="mt-1 text-xs leading-5 text-violet-700">
+              These settings affect administrator accounts and
+              platform-level access.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+        <InputField
+          label="Session Timeout (Minutes)"
+          value={sessionTimeout}
+          onChange={setSessionTimeout}
+          type="number"
+          icon={<Clock className="h-4 w-4" />}
+        />
+
+        <SelectField
+          label="Password Expiry"
+          value="90 Days"
+          onChange={() => {}}
+          options={[
+            "30 Days",
+            "60 Days",
+            "90 Days",
+            "Never",
+          ]}
+        />
+      </div>
+
+      <div className="mt-6 space-y-4 border-t border-slate-200 pt-6">
+        <ToggleCard
+          title="Two-Factor Authentication"
+          description="Require 2FA for administrator accounts."
+          defaultChecked
+        />
+
+        <ToggleCard
+          title="Login Notifications"
+          description="Notify admins when a new login occurs."
+          defaultChecked
+        />
+
+        <ToggleCard
+          title="Force Strong Password"
+          description="Require strong passwords for administrator accounts."
+          defaultChecked
+        />
+
+        <ToggleCard
+          title="Login Rate Limiting"
+          description="Protect the login endpoint against repeated attempts."
+          defaultChecked
+        />
+      </div>
+
+      <div className="mt-6 border-t border-slate-200 pt-6">
+        <label className="mb-2 block text-sm font-medium text-slate-700">
+          API Secret Key
+        </label>
+
+        <div className="relative">
+          <KeyRound className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+
+          <input
+            type={showSecret ? "text" : "password"}
+            defaultValue="sk_live_voicecall_************************"
+            className="h-11 w-full rounded-xl border border-slate-200 bg-white pl-10 pr-12 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+          />
+
+          <button
+            type="button"
+            onClick={() => setShowSecret(!showSecret)}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700"
+          >
+            {showSecret ? (
+              <EyeOff className="h-4 w-4" />
+            ) : (
+              <Eye className="h-4 w-4" />
+            )}
+          </button>
+        </div>
+
+        <p className="mt-2 text-xs text-slate-400">
+          Keep this key private. Do not expose it in frontend code.
+        </p>
+      </div>
+    </SettingsCard>
+  );
+}
+
+/* =========================================================
+   SYSTEM SETTINGS
+========================================================= */
+
+function SystemSettings({
+  onSave,
+}: {
+  onSave: () => void;
+}) {
+  return (
+    <SettingsCard
+      title="System Settings"
+      description="Manage maintenance, cache and system-level configuration."
+      icon={<Database className="h-5 w-5" />}
+      onSave={onSave}
+    >
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <SystemStat
+          title="API Status"
+          value="Operational"
+          icon={<CheckCircle2 className="h-5 w-5" />}
+        />
+
+        <SystemStat
+          title="Call Service"
+          value="Connected"
+          icon={<PhoneCall className="h-5 w-5" />}
+        />
+
+        <SystemStat
+          title="Database"
+          value="Healthy"
+          icon={<Database className="h-5 w-5" />}
+        />
+      </div>
+
+      <div className="mt-6 border-t border-slate-200 pt-6">
+        <h3 className="text-sm font-semibold text-slate-900">
+          System Controls
+        </h3>
+
+        <div className="mt-4 space-y-4">
+          <ToggleCard
+            title="Maintenance Mode"
+            description="Temporarily disable customer access while administrators can continue working."
+            defaultChecked={false}
+            danger
+          />
+
+          <ToggleCard
+            title="Debug Mode"
+            description="Enable detailed system logs for troubleshooting."
+            defaultChecked={false}
+          />
+
+          <ToggleCard
+            title="API Access"
+            description="Allow API clients to communicate with the platform."
+            defaultChecked
+          />
+        </div>
+      </div>
+
+      <div className="mt-6 border-t border-slate-200 pt-6">
+        <h3 className="text-sm font-semibold text-slate-900">
+          System Actions
+        </h3>
+
+        <div className="mt-4 flex flex-col gap-3 sm:flex-row">
+          <button
+            type="button"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+          >
+            <RefreshCw className="h-4 w-4" />
+            Clear Cache
+          </button>
+
+          <button
+            type="button"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+          >
+            <Database className="h-4 w-4" />
+            Run Health Check
+          </button>
+        </div>
+      </div>
+
+      <div className="mt-6 rounded-xl border border-red-200 bg-red-50 p-4">
+        <div className="flex items-start gap-3">
+          <AlertTriangle className="mt-0.5 h-5 w-5 text-red-600" />
+
+          <div>
+            <h3 className="text-sm font-semibold text-red-900">
+              Dangerous System Actions
+            </h3>
+
+            <p className="mt-1 text-xs leading-5 text-red-700">
+              Database reset, account deletion and other destructive
+              operations should be protected by additional confirmation
+              and Super Admin authorization.
+            </p>
+          </div>
+        </div>
+      </div>
+    </SettingsCard>
+  );
+}
+
+/* =========================================================
+   REUSABLE SETTINGS CARD
+========================================================= */
+
+function SettingsCard({
+  title,
+  description,
+  icon,
+  children,
+  onSave,
+}: {
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  children: React.ReactNode;
+  onSave: () => void;
+}) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+      {/* Header */}
+      <div className="flex flex-col gap-4 border-b border-slate-200 px-5 py-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-start gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700">
+            {icon}
+          </div>
+
+          <div>
+            <h2 className="text-base font-bold text-slate-900">
+              {title}
+            </h2>
+
+            <p className="mt-1 text-sm text-slate-500">
+              {description}
+            </p>
+          </div>
+        </div>
+
+        <button
+          onClick={onSave}
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+        >
+          <Save className="h-4 w-4" />
+          Save Changes
+        </button>
+      </div>
+
+      {/* Content */}
+      <div className="p-5 sm:p-6">{children}</div>
+    </div>
+  );
+}
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+function InputField({
+  label,
+  value,
+  onChange,
+  placeholder,
+  type = "text",
+  icon,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  placeholder?: string;
+  type?: string;
+  icon?: React.ReactNode;
+}) {
+  return (
+    <div>
+      <label className="mb-2 block text-sm font-medium text-slate-700">
+        {label}
+      </label>
+
+      <div className="relative">
+        {icon && (
+          <div className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+            {icon}
+          </div>
+        )}
+
+        <input
+          type={type}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          placeholder={placeholder}
+          className={`h-11 w-full rounded-xl border border-slate-200 bg-white text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 ${
+            icon ? "pl-10 pr-4" : "px-4"
+          }`}
+        />
+      </div>
+    </div>
+  );
+}
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+function SelectField({
+  label,
+  value,
+  onChange,
+  options,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  options: string[];
+}) {
+  return (
+    <div>
+      <label className="mb-2 block text-sm font-medium text-slate-700">
+        {label}
+      </label>
+
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="h-11 w-full rounded-xl border border-slate-200 bg-white px-4 text-sm text-slate-700 outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+      >
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+/* =========================================================
+   TOGGLE
+========================================================= */
+
+function ToggleCard({
+  title,
+  description,
+  defaultChecked = false,
+  danger = false,
+}: {
+  title: string;
+  description: string;
+  defaultChecked?: boolean;
+  danger?: boolean;
+}) {
+  const [checked, setChecked] =
+    useState(defaultChecked);
+
+  return (
+    <div
+      className={`flex items-center justify-between gap-4 rounded-xl border p-4 ${
+        danger
+          ? "border-red-200 bg-red-50/40"
+          : "border-slate-200 bg-white"
+      }`}
+    >
+      <div className="min-w-0">
+        <p
+          className={`text-sm font-semibold ${
+            danger ? "text-red-800" : "text-slate-800"
+          }`}
+        >
+          {title}
+        </p>
+
+        <p className="mt-1 text-xs leading-5 text-slate-500">
+          {description}
+        </p>
+      </div>
+
+      <button
+        type="button"
+        onClick={() => setChecked(!checked)}
+        aria-label={`Toggle ${title}`}
+        className={`relative h-6 w-11 shrink-0 rounded-full transition ${
+          checked
+            ? danger
+              ? "bg-red-600"
+              : "bg-slate-900"
+            : "bg-slate-200"
+        }`}
+      >
+        <span
+          className={`absolute top-0.5 h-5 w-5 rounded-full bg-white shadow-sm transition ${
+            checked ? "left-[22px]" : "left-0.5"
+          }`}
+        />
+      </button>
+    </div>
+  );
+}
+
+/* =========================================================
+   SYSTEM STAT
+========================================================= */
+
+function SystemStat({
+  title,
+  value,
+  icon,
+}: {
+  title: string;
+  value: string;
+  icon: React.ReactNode;
+}) {
+  return (
+    <div className="rounded-xl border border-slate-200 bg-slate-50/60 p-4">
+      <div className="flex items-center justify-between">
+        <div className="rounded-lg bg-emerald-50 p-2 text-emerald-600">
+          {icon}
+        </div>
+
+        <span className="text-xs font-medium text-emerald-600">
+          Healthy
+        </span>
+      </div>
+
+      <p className="mt-4 text-xs font-medium text-slate-500">
+        {title}
+      </p>
+
+      <p className="mt-1 text-sm font-bold text-slate-900">
+        {value}
+      </p>
+    </div>
+  );
+}
