@@ -5,7 +5,9 @@ export const tags = {
   voiceFiles: "VoiceFiles",
   subscriptions: "Subscriptions",
   plans: "Plans",
-  dashboard: "Dashboard"
+  dashboard: "Dashboard",
+  campaigns: "Campaigns",
+  wallet: "Wallet"
 } as const;
 
 export type Tag = (typeof tags)[keyof typeof tags];

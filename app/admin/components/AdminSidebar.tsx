@@ -9,65 +9,16 @@ import {
   CreditCard,
   PhoneCall,
   Megaphone,
-  Wallet,
-  BarChart3,
   Ticket,
-  ShieldCheck,
   Settings,
   LogOut,
   Menu,
   X,
-  FileAudio,
   Receipt,
 } from "lucide-react";
+import { menu } from "@/app/utils/data";
 
-const menu = [
-  {
-    title: "MAIN",
-    items: [
-      {
-        label: "Dashboard",
-        href: "/admin",
-        icon: LayoutDashboard,
-      },
-      {
-        label: "Subscriptions",
-        href: "/admin/subscriptions",
-        icon: CreditCard,
-      },
-      {
-        label: "Users",
-        href: "/admin/users",
-        icon: Users,
-      },
-      {
-        label: "Campaigns",
-        href: "/admin/campaigns",
-        icon: Megaphone,
-      },
-      {
-        label: "Payments",
-        href: "/admin/payments",
-        icon: Receipt,
-      },
-      {
-        label: "Support Tickets",
-        href: "/admin/tickets",
-        icon: Ticket,
-      },
-      {
-        label: "Roles",
-        href: "/admin/roles",
-        icon: ShieldCheck,
-      },
-      {
-        label: "Settings",
-        href: "/admin/settings",
-        icon: Settings,
-      },
-    ],
-  },
-];
+
 
 export default function AdminSidebar() {
   const pathname = usePathname();
@@ -132,28 +83,10 @@ export default function AdminSidebar() {
 
         {/* Navigation */}
         <div className="flex-1 overflow-y-auto px-3 py-5">
-          {menu.map((section) => (
-            <div key={section.title} className="mb-6">
-              {/* Section Title */}
-              <p className="mb-2 px-3 text-[9px] font-bold tracking-[0.18em] text-slate-500">
-                {section.title}
-              </p>
-
+            <div className="mb-6">
               <div className="space-y-1">
-                {section.items.map((item) => {
+                {menu.map((item) => {
                   const Icon = item.icon;
-
-                  /*
-                   * Dashboard must be EXACT match.
-                   *
-                   * /admin             -> Dashboard active
-                   * /admin/subscriptions -> Dashboard NOT active
-                   *
-                   * Other menu items:
-                   * /admin/users       -> Users active
-                   * /admin/users/123   -> Users active
-                   */
-
                   const active =
                     item.href === "/admin"
                       ? pathname === "/admin"
@@ -178,8 +111,7 @@ export default function AdminSidebar() {
                             ? "bg-blue-600 text-white shadow-md shadow-blue-600/20"
                             : "text-slate-300 hover:bg-slate-800 hover:text-white"
                         }
-                      `}
-                    >
+                      `}>
                       <Icon
                         className={`
                           h-4.25 w-4.25
@@ -193,7 +125,7 @@ export default function AdminSidebar() {
                 })}
               </div>
             </div>
-          ))}
+          
         </div>
 
         {/* Bottom Logout */}

@@ -173,7 +173,6 @@ export default function SuperAdminDashboard() {
 
           <div className="mt-8 flex h-48 items-end gap-3">
             {revenue?.monthly_chart && revenue.monthly_chart.length > 0 ? (
-              // Find max revenue for scaling
               (() => {
                 const maxRevenue = Math.max(...revenue.monthly_chart.map((r: { revenue: any; }) => r.revenue), 1);
                 
@@ -209,7 +208,6 @@ export default function SuperAdminDashboard() {
         </div>
       </div>
 
-      {/* Recent subscriptions */}
       <RecentSubscriptions subscriptions={recent?.subscriptions || []} />
     </div>
   );

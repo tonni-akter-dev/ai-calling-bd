@@ -254,48 +254,11 @@ function GeneralSettings({
           icon={<Smartphone className="h-4 w-4" />}
         />
 
-        <SelectField
-          label="Timezone"
-          value={timezone}
-          onChange={setTimezone}
-          options={[
-            "Asia/Dhaka",
-            "Asia/Kolkata",
-            "Asia/Dubai",
-            "UTC",
-          ]}
-        />
+    
 
-        <SelectField
-          label="Default Language"
-          value="English"
-          onChange={() => {}}
-          options={[
-            "English",
-            "Bangla",
-          ]}
-        />
       </div>
 
-      <div className="mt-6 border-t border-slate-200 pt-6">
-        <h3 className="text-sm font-semibold text-slate-900">
-          Platform Status
-        </h3>
 
-        <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2">
-          <ToggleCard
-            title="Platform Enabled"
-            description="Allow customers to use the platform."
-            defaultChecked
-          />
-
-          <ToggleCard
-            title="New Registrations"
-            description="Allow new customers to register."
-            defaultChecked
-          />
-        </div>
-      </div>
     </SettingsCard>
   );
 }

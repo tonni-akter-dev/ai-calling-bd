@@ -153,12 +153,10 @@ export default function SupportTicketsPage() {
 
   return (
     <div className="space-y-6 pb-10">
-      {/* HEADER */}
       <PageHeader
         title="Support Tickets"
         description="Manage customer support requests, issues and conversations."
       />
-
       {/* SUMMARY CARDS */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
         <SummaryCard
@@ -168,7 +166,6 @@ export default function SupportTicketsPage() {
           icon={<Ticket className="h-5 w-5" />}
           iconClass="bg-blue-50 text-blue-600"
         />
-
         <SummaryCard
           title="Open"
           value={stats?.openTickets || "0"}
@@ -176,7 +173,6 @@ export default function SupportTicketsPage() {
           icon={<AlertCircle className="h-5 w-5" />}
           iconClass="bg-orange-50 text-orange-600"
         />
-
         <SummaryCard
           title="In Progress"
           value={stats?.inProgress || "0"}
@@ -184,8 +180,6 @@ export default function SupportTicketsPage() {
           icon={<Clock3 className="h-5 w-5" />}
           iconClass="bg-violet-50 text-violet-600"
         />
-
-  
         <SummaryCard
           title="Resolved"
           value={stats?.resolved || "0"}
@@ -194,7 +188,6 @@ export default function SupportTicketsPage() {
           iconClass="bg-emerald-50 text-emerald-600"
         />
       </div>
-
       {/* TICKETS TABLE */}
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white">
         {/* TABLE HEADER */}
@@ -204,17 +197,13 @@ export default function SupportTicketsPage() {
               <h2 className="font-semibold text-slate-900">
                 All Support Tickets
               </h2>
-
               <p className="mt-1 text-sm text-slate-500">
                 Review and manage customer support requests.
               </p>
             </div>
-
             <div className="flex flex-col gap-3 md:flex-row">
-              {/* SEARCH */}
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-
                 <input
                   type="text"
                   value={search}

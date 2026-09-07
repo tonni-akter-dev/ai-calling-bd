@@ -20,7 +20,6 @@ const userApi = baseApi.injectEndpoints({
       providesTags: ["Users"],
     }),
 
-    // Get all users (Super Admin only)
     getAllUsers: builder.query({
       query: () => ({
         url: "/auth/users",
