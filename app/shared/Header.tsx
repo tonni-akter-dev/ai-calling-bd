@@ -18,7 +18,7 @@ export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 z-50 w-full mt-5 ">
+    <header className="fixed top-0 left-0 z-50 w-full mt-5 px-20 ">
       <div className="container mx-auto flex h-19.5 items-center  border border-slate-200 bg-white rounded-full justify-between px-4 lg:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-3">

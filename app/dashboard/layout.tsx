@@ -83,7 +83,6 @@ function BalanceDisplay() {
 
   const balance = walletData?.balance || 0;
   const currency = walletData?.currency || "BDT";
-  const ratePerMinute = walletData?.ratePerMinute || 0;
 
   return (
     <div className="hidden sm:flex items-center space-x-3">
@@ -94,15 +93,7 @@ function BalanceDisplay() {
           {currency} {balance.toFixed(2)}
         </span>
       </div>
-      {ratePerMinute > 0 && (
-        <div className="hidden lg:flex items-center space-x-1 bg-slate-900 border border-slate-700/80 px-3 py-1.5 rounded-full text-xs">
-          <Phone className="w-3 h-3 text-blue-400" />
-          <span className="text-slate-400">Rate:</span>
-          <span className="text-blue-400 font-bold">
-            {currency} {ratePerMinute.toFixed(2)}/min
-          </span>
-        </div>
-      )}
+     
     </div>
   );
 }
@@ -239,7 +230,7 @@ export default function DashboardLayout({
           {/* Brand Header */}
           <div className="h-16 px-6 flex items-center justify-between border-b border-slate-700/80 bg-[#1e293b]">
             <Link href="/dashboard" className="flex items-center space-x-2.5">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+              <div className="w-9 h-9 rounded-xl bg-linear-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
                 <Phone className="w-4 h-4" />
               </div>
               <span className="font-extrabold text-lg text-white tracking-tight">

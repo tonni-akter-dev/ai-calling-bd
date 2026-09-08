@@ -270,54 +270,6 @@ const handleBkashPayment = async () => {
         </div>
       </div>
 
-      {/* Test Wallet Info */}
-      {process.env.NODE_ENV === "development" && showTestInfo && (
-        <div className="relative rounded-xl border border-blue-200 bg-blue-50 p-4">
-          <button
-            onClick={() => setShowTestInfo(false)}
-            className="absolute top-2 right-2 text-blue-400 hover:text-blue-600"
-          >
-            <X className="w-4 h-4" />
-          </button>
-          <div className="flex items-start gap-3">
-            <Info className="w-5 h-5 text-blue-600 mt-0.5 shrink-0" />
-            <div className="text-xs text-blue-800">
-              <p className="font-semibold mb-1">🧪 Test Wallet Numbers (Sandbox)</p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <div>
-                  <span className="font-semibold text-green-600">✅ Success:</span>
-                  <span className="ml-1">01770618575, 01929918378</span>
-                </div>
-                <div>
-                  <span className="font-semibold text-red-600">❌ Failed:</span>
-                  <span className="ml-1">01823074817 (Insufficient)</span>
-                </div>
-              </div>
-              <p className="mt-1">
-                <span className="font-semibold">PIN:</span> 12121 | 
-                <span className="font-semibold ml-2">OTP:</span> 123456
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Payment Status Messages */}
-      {paymentSuccess && (
-        <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-700 flex items-center gap-3">
-          <CheckCircle2 className="w-5 h-5 shrink-0" />
-          <span className="text-sm font-medium">
-            Payment successful! {successAmount.toFixed(2)} TK added to your wallet.
-          </span>
-          <button
-            onClick={() => setPaymentSuccess(false)}
-            className="ml-auto text-emerald-700 hover:text-emerald-900"
-          >
-            <X className="w-4 h-4" />
-          </button>
-        </div>
-      )}
-
       {paymentError && !bkashDirectUrl && (
         <div className="rounded-xl border border-rose-200 bg-rose-50 p-4 text-rose-700 flex items-center gap-3">
           <AlertCircle className="w-5 h-5 shrink-0" />
