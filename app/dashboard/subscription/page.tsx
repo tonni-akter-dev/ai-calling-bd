@@ -136,7 +136,7 @@ export default function SubscriptionPage() {
         </div>
 
         {/* Active Subscription Card */}
-        <div className="bg-gradient-to-r from-primary to-indigo-600 rounded-2xl p-6 md:p-8 text-white">
+        <div className="bg-linear-to-r from-primary to-indigo-600 rounded-2xl p-6 md:p-8 text-white">
           <div className="flex items-start justify-between flex-wrap gap-4">
             <div>
               <div className="flex items-center gap-2">

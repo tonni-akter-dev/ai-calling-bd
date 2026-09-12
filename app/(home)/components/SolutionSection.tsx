@@ -142,7 +142,7 @@ export default function SolutionSection() {
                   onClick={() => setActiveTab(section.id)}
                   className={`w-full flex items-center gap-4 px-6 py-5 rounded-2xl text-left transition-all duration-300 ${
                     isActive
-                      ? "bg-gradient-to-r from-orange-500 to-amber-500 text-white shadow-lg shadow-orange-500/25 scale-[1.02]"
+                      ? "bg-linear-to-r from-orange-500 to-amber-500 text-white shadow-lg shadow-orange-500/25 scale-[1.02]"
                       : "bg-white/5 text-blue-100/70 hover:bg-white/10 border border-white/5"
                   }`}
                 >

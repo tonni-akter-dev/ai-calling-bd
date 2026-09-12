@@ -12,7 +12,7 @@ export default function HomeStats() {
 
   return (
     <section className="relative z-20 mt-16 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto w-full max-w-7xl rounded-3xl border border-white/20 ">
+      <div className="mx-auto w-full max-w-7xl rounded-3xl border border-white/20">
         <div className="mb-12 text-center">
           <h2 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-linear-to-r from-slate-900 to-slate-600">
             Everything Your Business Needs <br /> to Communicate Better
@@ -22,13 +22,23 @@ export default function HomeStats() {
           {items.map((item, idx) => {
             const Icon = item.icon;
             return (
-              <div key={idx} className="cursor-pointer group relative flex gap-5 rounded-2xl bg-[#edf0ff] p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/5 border border-slate-100">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-linear-to-br from-blue-50 to-indigo-50 text-primary transition-all duration-500 group-hover:from-primary group-hover:to-blue-700 group-hover:text-white group-hover:scale-110">
+              <div
+                key={idx}
+                className="cursor-pointer group relative flex gap-5 rounded-2xl bg-white p-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:shadow-primary/5 border border-slate-100"
+              >
+                {/* Icon Box - Visible Background Before Hover */}
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-linear-to-br
+                 from-white to-white text-black shadow-md transition-all duration-500 group-hover:text-white
+                  group-hover:from-primary group-hover:to-blue-900 group-hover:scale-110 group-hover:shadow-blue-600/40">
                   <Icon className="h-6 w-6" />
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-slate-900 group-hover:text-primary transition-colors">{item.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-500">{item.desc}</p>
+                  <h3 className="text-base font-bold text-slate-900 group-hover:text-primary transition-colors">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-500">
+                    {item.desc}
+                  </p>
                 </div>
               </div>
             );

@@ -91,7 +91,7 @@ export default function CloudRecording() {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white via-slate-50 to-white relative overflow-hidden">
+    <section className="py-24 bg-linear-to-b from-white via-slate-50 to-white relative overflow-hidden">
       
       {/* Subtle background glow */}
       <motion.div
@@ -99,7 +99,7 @@ export default function CloudRecording() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.5, ease: "easeOut" }}
-        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[700px] rounded-full bg-blue-100/30 blur-3xl"
+        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-100 w-[700px] rounded-full bg-blue-100/30 blur-3xl"
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -126,7 +126,7 @@ export default function CloudRecording() {
             className="text-3xl md:text-5xl font-bold text-slate-900 mt-5 tracking-tight leading-[1.15]"
           >
             How Cloud Recording{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-800">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-800">
               Works
             </span>
           </motion.h2>
@@ -161,7 +161,7 @@ export default function CloudRecording() {
               >
                 {/* Left accent bar */}
                 <div
-                  className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${step.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                  className={`absolute left-0 top-0 bottom-0 w-1 bg-linear-to-b ${step.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                 />
 
                 <div className="flex items-start gap-5">
@@ -260,7 +260,7 @@ export default function CloudRecording() {
           <motion.div
             whileHover={{ y: -4, scale: 1.005 }}
             transition={{ duration: 0.4 }}
-            className="group relative rounded-3xl bg-gradient-to-br from-primary via-[#0B1329] to-[#0F1E55] text-white p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl shadow-primary/20 overflow-hidden"
+            className="group relative rounded-3xl bg-linear-to-br from-primary via-[#0B1329] to-[#0F1E55] text-white p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl shadow-primary/20 overflow-hidden"
           >
             
             {/* Decorative glows */}

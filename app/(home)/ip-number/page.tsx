@@ -1,224 +1,255 @@
-/* eslint-disable react/no-unescaped-entities */
 import {
   CheckCircle2,
   ArrowRight,
   Phone,
   ShieldCheck,
+  Hash,
 } from "lucide-react";
 import Link from "next/link";
 
 export default function IPNumberPage() {
-  const operators = [
-    {
-      name: "Ranks ITT",
-      tag: "BTRC LICENSED IPTSP OPERATOR",
-      logoColor: "from-blue-500 to-emerald-400",
-    },
-    {
-      name: "Icon Infotech",
-      tag: "BTRC LICENSED IPTSP OPERATOR",
-      logoColor: "from-emerald-500 to-green-600",
-    },
-    {
-      name: "Royal Green Online",
-      tag: "BTRC LICENSED IPTSP OPERATOR",
-      logoColor: "from-amber-400 to-green-500",
-    },
-    {
-      name: "Sarkar Communication",
-      tag: "BTRC LICENSED IPTSP OPERATOR",
-      logoColor: "from-primary to-indigo-700",
-    },
+  const keyBenefits = [
+    "One Official Business Number",
+    "Multiple Employee Extensions",
+    "IVR and Call Routing",
+    "SIP / Softphone Compatibility",
+    "Centralized Call Management",
+    "Professional Customer Experience",
+    "Use from Supported Locations",
   ];
 
   const steps = [
     {
-      step: "1",
-      title: "Choose Your Operator",
-      desc: "Select from our partner IPTSP operators based on your preference and number availability.",
-      badgeColor: "bg-blue-50 text-primary border-blue-100",
+      step: "01",
+      icon: "📋",
+      title: "Tell Us Your Requirement",
+      desc: "Share your business name and extensions.",
     },
     {
-      step: "2",
-      title: "We Set Everything Up",
-      desc: "IPCallBD handles all PBX setup, SIP configuration, and technical setup for you.",
-      badgeColor: "bg-amber-50 text-amber-600 border-amber-100",
+      step: "02",
+      icon: "🔍",
+      title: "Check Availability",
+      desc: "We check available business numbers.",
     },
     {
-      step: "3",
-      title: "Start Making Calls",
-      desc: "Your IP number is ready! Start making and receiving calls from anywhere in Bangladesh.",
-      badgeColor: "bg-emerald-50 text-emerald-600 border-emerald-100",
+      step: "03",
+      icon: "⚙️",
+      title: "Complete Setup",
+      desc: "We configure PBX / SIP for your business.",
+    },
+    {
+      step: "04",
+      icon: "🔗",
+      title: "Connect Your Team",
+      desc: "Add extensions and supported softphones.",
+    },
+    {
+      step: "05",
+      icon: "🚀",
+      title: "Go Live",
+      desc: "Start making and receiving business calls.",
     },
   ];
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] font-sans antialiased text-slate-800">
-      {/* 1. Header Hero Banner */}
-      <section className="relative bg-[#0b1329] text-white pt-40 pb-32 text-center overflow-hidden">
-        {/* Soft Ambient Glow */}
+      {/* ==================== HERO ==================== */}
+      <section className="relative bg-[#0b1329] text-white pt-40 pb-40 text-center overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-125 h-125 bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-40 right-0 w-100 h-100 bg-orange-500/10 rounded-full blur-[100px] pointer-events-none" />
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4">
-            <span className="text-orange-500">IP</span> Number
+        <div className="relative z-10 max-w-3xl mx-auto px-4">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md">
+            <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+            CORPORATE IP NUMBER
+          </div>
+
+          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-5 leading-[1.15]">
+            Get a Professional
+            <span className="text-orange-500">Corporate IP Number</span> for
+            Your Business
           </h1>
-          <p className="text-slate-300 text-base md:text-lg max-w-2xl mx-auto font-normal leading-relaxed">
-            Get your corporate IP phone number through BTRC-licensed <br />
-            operators with full PBX support.
+
+          <p className="text-slate-300 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+            Give customers one official number while your team uses extensions
+            and supported SIP/softphone tools to manage business calls.
           </p>
-          <div className="mt-5 text-sm text-slate-400 font-medium">
-            Home <span className="mx-2">/</span> <span className="text-blue-400">IP Number</span>
+
+          <div className="mt-6 text-xs text-slate-400 font-medium">
+            <Link href="/" className="hover:text-white transition">
+              Home
+            </Link>
+            <span className="mx-2">/</span>
+            <span className="text-orange-400">IP Number</span>
           </div>
         </div>
       </section>
 
-      {/* 2. Floating "What is an IP Number?" Card */}
-      <section className="relative -mt-16 z-20 max-w-4xl mx-auto px-4">
-        <div className="bg-white rounded-3xl p-8 md:p-12 border border-slate-100 shadow-xl shadow-slate-200/50 text-center">
-          <h2 className="text-3xl md:text-4xl font-extrabold text-blue-700 tracking-tight mb-5">
-            What is an IP Number?
-          </h2>
-          <p className="text-sm md:text-base text-slate-500 leading-relaxed max-w-2xl mx-auto mb-4">
-            IP Phone services are provided via BTRC-licensed IPTSP operators. Customers may choose their preferred operator and number availability.
-          </p>
-          <p className="text-sm md:text-base text-slate-600 leading-relaxed max-w-2xl mx-auto mb-8 font-medium">
-            <span className="text-primary font-bold">IPCallBD acts as a service facilitator</span>, providing PBX setup, SIP configuration, and technical support to ensure seamless use of the IP Phone service.
-          </p>
+      {/* ==================== COMBINED: What Is + Benefits + Operator ==================== */}
+      <section className="relative -mt-24 z-20 max-w-6xl mx-auto px-4 pb-20">
+        <div className="bg-white rounded-3xl border border-slate-100 shadow-xl shadow-slate-200/50 overflow-hidden">
+          <div className="grid lg:grid-cols-2">
+            <div className="relative p-8 md:p-12 lg:p-14 border-b lg:border-b-0 lg:border-r border-slate-100">
+              <div className="pointer-events-none absolute -top-20 -left-20 h-60 w-60 bg-blue-50 rounded-full blur-3xl opacity-60" />
+              <div className="relative">
+                <span className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.15em] text-primary bg-primary/5 px-3.5 py-1.5 rounded-full border border-primary/10 mb-6">
+                  <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+                  What Is a Business IP Number?
+                </span>
+                <h2 className="text-2xl md:text-[28px] font-extrabold text-slate-900 tracking-tight mb-5 leading-tight">
+                  One Official Number,
+                  <span className="text-primary">Connected to Your Team</span>
+                </h2>
+                <p className="text-[15px] text-slate-500 leading-[1.75] mb-8 max-w-md">
+                  An IP number is a business phone number designed to work with
+                  internet-based voice communication. With a Cloud PBX setup,
+                  one official number can connect customers to multiple
+                  employees or departments.
+                </p>
 
-          {/* Bullet Grid */}
-          <div className="bg-slate-50/70 border border-slate-100 rounded-2xl p-6 md:p-8 mb-8 max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4 text-left">
-            <div className="flex items-center space-x-2.5 text-sm text-slate-700">
-              <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-              <span>Choose your preferred IPTSP operator</span>
-            </div>
-            <div className="flex items-center space-x-2.5 text-sm text-slate-700">
-              <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-              <span>Select from available numbers</span>
-            </div>
-            <div className="flex items-center space-x-2.5 text-sm text-slate-700">
-              <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-              <span>Full PBX setup included</span>
-            </div>
-            <div className="flex items-center space-x-2.5 text-sm text-slate-700">
-              <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-              <span>SIP configuration & support</span>
-            </div>
-            <div className="flex items-center space-x-2.5 text-sm text-slate-700">
-              <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-              <span>Dedicated technical assistance</span>
-            </div>
-            <div className="flex items-center space-x-2.5 text-sm text-slate-700">
-              <CheckCircle2 className="w-5 h-5 text-primary shrink-0" />
-              <span>Use from anywhere in Bangladesh</span>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="#order-step"
-              className="w-full sm:w-auto bg-primary hover:bg-blue-700 text-white px-7 py-3.5 rounded-xl text-sm font-semibold transition inline-flex items-center justify-center space-x-2 shadow-md shadow-blue-500/20"
-            >
-              <span>Get an IP Number</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/pricing"
-              className="w-full sm:w-auto border border-slate-300 hover:bg-slate-50 text-slate-700 px-7 py-3.5 rounded-xl text-sm font-semibold transition inline-flex items-center justify-center"
-            >
-              View Pricing
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. BTRC Licensed Operators Section */}
-      <section className="py-24">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center max-w-xl mx-auto mb-14">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-blue-700 tracking-tight">
-              BTRC Licensed Operators
-            </h2>
-            <p className="text-slate-500 text-sm md:text-base mt-3">
-              We work with Bangladesh's top licensed IPTSP operators to provide you with reliable IP phone services.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {operators.map((op, idx) => (
-              <div
-                key={idx}
-                className="bg-white rounded-3xl p-7 border border-slate-100 shadow-sm hover:shadow-md transition text-center flex flex-col items-center justify-center space-y-4"
-              >
-                {/* Visual Icon Badge */}
-                <div className={`w-16 h-16 rounded-2xl bg-gradient-to-tr ${op.logoColor} p-0.5 shadow-xs flex items-center justify-center`}>
-                  <div className="w-full h-full bg-white rounded-[14px] flex items-center justify-center">
-                    <ShieldCheck className="w-8 h-8 text-slate-700" />
+                {/* Operator Note - Refined */}
+                <div className="relative flex items-start gap-3.5 rounded-2xl bg-linear-to-br from-emerald-50 to-teal-50/50 border border-emerald-100 p-5 max-w-md">
+                  <div className="shrink-0 flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10">
+                    <ShieldCheck className="w-4.5 h-4.5 text-emerald-600" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-bold text-emerald-900 mb-1">
+                      Licensed IPTSP Operator Services
+                    </p>
+                    <p className="text-xs text-emerald-800/80 leading-relaxed">
+                      Where applicable, services are provided through licensed
+                      IPTSP operators. Contact us for verified operator and
+                      regulatory details.
+                    </p>
                   </div>
                 </div>
-                <div>
-                  <h3 className="font-bold text-slate-900 text-base mb-1">{op.name}</h3>
-                  <span className="text-[10px] font-bold text-primary bg-blue-50 px-3 py-1 rounded-full uppercase tracking-wider inline-block">
-                    {op.tag}
-                  </span>
+              </div>
+            </div>
+
+            {/* ============ RIGHT — Key Benefits ============ */}
+            <div className="relative p-8 md:p-12 lg:p-14">
+              <div className="relative">
+                <div className="flex items-center gap-3 mb-6">
+                  <h3 className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">
+                    Key Benefits
+                  </h3>
+                  <div className="flex-1 h-px bg-linear-to-r from-slate-200 to-transparent" />
+                </div>
+
+                <ul className="space-y-3.5 mb-8">
+                  {keyBenefits.map((item, idx) => (
+                    <li
+                      key={idx}
+                      className="group flex items-center gap-3.5 text-[15px] text-slate-700"
+                    >
+                      <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-50 group-hover:bg-emerald-500 transition-colors duration-300">
+                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 group-hover:text-white transition-colors duration-300" />
+                      </span>
+                      <span className="font-medium">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 pt-6 border-t border-slate-100">
+                  <Link
+                    href="#order-step"
+                    className="group flex-1 bg-primary hover:bg-blue-700 text-white px-6 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 inline-flex items-center justify-center gap-2 shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30"
+                  >
+                    Get an IP Number
+                    <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+                  </Link>
+                  <Link
+                    href="/pricing"
+                    className="flex-1 border border-slate-200 hover:border-slate-300 hover:bg-slate-50 text-slate-700 px-6 py-3.5 rounded-xl text-sm font-bold transition-all duration-300 inline-flex items-center justify-center"
+                  >
+                    View Pricing
+                  </Link>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 4. How to Get Your IP Number */}
-      <section className="py-20 bg-white border-t border-b border-slate-100" id="order-step">
+      {/* ==================== HOW TO GET YOUR NUMBER ==================== */}
+      <section
+        className="py-20 bg-white border-t border-slate-100"
+        id="order-step"
+      >
         <div className="max-w-7xl mx-auto px-4">
-          <div className="text-center max-w-xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-blue-700 tracking-tight">
-              How to Get Your IP Number
+          <div className="text-center max-w-xl mx-auto mb-14">
+            <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.15em] text-primary bg-primary/5 px-4 py-2 rounded-full border border-primary/10 mb-4">
+              <span className="h-1.5 w-1.5 rounded-full bg-orange-500" />
+              How It Works
+            </span>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
+              How to Get Your <span className="text-primary">IP Number</span>
             </h2>
+            <p className="text-slate-500 text-sm mt-3">
+              Follow these 5 simple steps to get your business number live.
+            </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {steps.map((item) => (
-              <div
-                key={item.step}
-                className="bg-slate-50/70 rounded-3xl p-8 border border-slate-200/60 text-center flex flex-col items-center relative"
-              >
-                <div className={`w-14 h-14 rounded-full border ${item.badgeColor} text-lg font-extrabold flex items-center justify-center mb-6`}>
-                  {item.step}
+          <div className="relative max-w-6xl mx-auto">
+            <div className="hidden lg:block absolute top-22 left-[10%] right-[10%] h-px bg-linear-to-r from-transparent via-slate-200 to-transparent" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+              {steps.map((item, idx) => (
+                <div key={idx} className="relative text-center group">
+                  <div className="relative z-10 mx-auto w-16 h-16 rounded-full bg-white border-2 border-slate-100 group-hover:border-primary/30 flex items-center justify-center mb-5 transition-all duration-300 group-hover:shadow-lg group-hover:shadow-primary/10">
+                    <span className="text-2xl">{item.icon}</span>
+                  </div>
+                  <p className="text-[10px] font-bold text-orange-500 uppercase tracking-wider mb-2">
+                    Step {item.step}
+                  </p>
+                  <h3 className="font-bold text-slate-900 text-sm mb-2 leading-snug">
+                    {item.title}
+                  </h3>
+                  <p className="text-xs text-slate-500 leading-relaxed max-w-50 mx-auto">
+                    {item.desc}
+                  </p>
                 </div>
-                <h3 className="font-bold text-slate-900 text-lg mb-2">{item.title}</h3>
-                <p className="text-sm text-slate-500 leading-relaxed">{item.desc}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 5. Bottom CTA Section */}
-      <section className="relative bg-[#0b1329] text-white py-20">
-        <div className="max-w-4xl mx-auto px-4 text-center">
+      {/* ==================== BOTTOM CTA ==================== */}
+      <section className="relative bg-[#0b1329] text-white py-20 overflow-hidden">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-125 h-125 bg-orange-500/10 rounded-full blur-[120px] pointer-events-none" />
+        <div className="absolute -bottom-32 right-0 w-100 h-100 bg-blue-500/10 rounded-full blur-[100px] pointer-events-none" />
+
+        <div className="relative max-w-3xl mx-auto px-4 text-center">
+          <div className="inline-flex w-14 h-14 items-center justify-center rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 mb-6">
+            <Hash className="w-6 h-6 text-orange-400" />
+          </div>
+
           <h2 className="text-3xl md:text-4xl font-extrabold mb-4 tracking-tight">
-            Get Your Corporate IP Number Today
+            Get Your Corporate
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-amber-500">
+              IP Number Today
+            </span>
           </h2>
-          <p className="text-slate-400 text-sm md:text-base max-w-xl mx-auto mb-10">
-            Contact us to choose your preferred operator and number.
+
+          <p className="text-slate-400 text-sm max-w-xl mx-auto mb-8 leading-relaxed">
+            Contact us to choose your preferred operator and number. Our team
+            will guide you through the full setup process.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href="/contact"
-              className="w-full sm:w-auto bg-white hover:bg-slate-100 text-slate-900 px-8 py-3.5 rounded-xl text-sm font-semibold transition inline-flex items-center justify-center space-x-2 shadow-lg"
+              className="w-full sm:w-auto bg-white hover:bg-slate-100 text-slate-900 px-7 py-3.5 rounded-xl text-sm font-semibold transition inline-flex items-center justify-center gap-2"
             >
-              <span>Get IP Number</span>
+              Get Your Corporate IP Number
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="tel:09649111303"
-              className="w-full sm:w-auto border border-slate-700 bg-slate-900/60 hover:bg-slate-800 text-white px-8 py-3.5 rounded-xl text-sm font-semibold transition inline-flex items-center justify-center space-x-2"
+              href="tel:+8809611029422"
+              className="w-full sm:w-auto border border-white/20 hover:bg-white/10 text-white px-7 py-3.5 rounded-xl text-sm font-semibold transition inline-flex items-center justify-center gap-2"
             >
-              <Phone className="w-4.5 h-4.5 text-blue-400" />
-              <span>09649111303</span>
+              <Phone className="w-4 h-4 text-orange-400" />
+              +880 9611 029422
             </Link>
           </div>
         </div>

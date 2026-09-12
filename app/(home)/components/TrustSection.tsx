@@ -13,8 +13,8 @@ export default function TrustSection() {
   return (
     <section className="py-24 bg-[#0A1128] relative overflow-hidden">
       {/* Background Glows */}
-      <div className="pointer-events-none absolute top-0 left-1/4 h-[400px] w-[400px] rounded-full bg-blue-600/10 blur-[120px]" />
-      <div className="pointer-events-none absolute bottom-0 right-1/4 h-[400px] w-[400px] rounded-full bg-orange-500/10 blur-[120px]" />
+      <div className="pointer-events-none absolute top-0 left-1/4 h-100 w-100 rounded-full bg-blue-600/10 blur-[120px]" />
+      <div className="pointer-events-none absolute bottom-0 right-1/4 h-100 w-100 rounded-full bg-orange-500/10 blur-[120px]" />
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-20 items-center">
@@ -26,7 +26,7 @@ export default function TrustSection() {
             </span>
             <h2 className="text-3xl md:text-5xl font-bold text-white mt-6 tracking-tight leading-[1.15]">
               Built for Business.{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-500">
+              <span className="text-transparent bg-clip-text bg-linear-to-r from-orange-400 to-amber-500">
                 Designed for Simplicity.
               </span>
             </h2>

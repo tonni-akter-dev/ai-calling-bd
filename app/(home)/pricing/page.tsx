@@ -213,7 +213,7 @@ export default function PricingPage() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 1.5, ease: "easeOut" }}
-          className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[700px] rounded-full bg-blue-100/30 blur-3xl"
+          className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-100 w-[700px] rounded-full bg-blue-100/30 blur-3xl"
         />
 
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -237,7 +237,7 @@ export default function PricingPage() {
                 <motion.div
                   whileHover={{ scale: 1.15, rotate: 10 }}
                   transition={{ duration: 0.4 }}
-                  className="relative w-20 h-20 rounded-full bg-gradient-to-br from-primary to-[#0F1E55] flex items-center justify-center shadow-lg shadow-primary/30 cursor-pointer"
+                  className="relative w-20 h-20 rounded-full bg-linear-to-br from-primary to-[#0F1E55] flex items-center justify-center shadow-lg shadow-primary/30 cursor-pointer"
                 >
                   {/* Pulse ring */}
                   <motion.span
@@ -268,7 +268,7 @@ export default function PricingPage() {
                 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight leading-[1.15]"
               >
                 Need a{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-800">
+                <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-800">
                   Custom Solution?
                 </span>
               </motion.h3>

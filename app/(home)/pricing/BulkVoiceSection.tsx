@@ -61,7 +61,7 @@ export default function BulkVoiceSection() {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-b from-white via-slate-50 to-white relative overflow-hidden">
+    <section className="py-24 bg-linear-to-b from-white via-slate-50 to-white relative overflow-hidden">
       
       {/* Subtle background glow */}
       <motion.div
@@ -69,7 +69,7 @@ export default function BulkVoiceSection() {
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 1.5, ease: "easeOut" }}
-        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-[700px] rounded-full bg-blue-100/30 blur-3xl"
+        className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-100 w-[700px] rounded-full bg-blue-100/30 blur-3xl"
       />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -103,7 +103,7 @@ export default function BulkVoiceSection() {
             className="text-3xl md:text-4xl font-bold text-slate-900 tracking-tight leading-[1.15]"
           >
             Broadcast to Thousands{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-800">
+            <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-blue-800">
               Simultaneously
             </span>
           </motion.h2>
@@ -157,7 +157,7 @@ export default function BulkVoiceSection() {
           <motion.div
             whileHover={{ y: -8, scale: 1.02 }}
             transition={{ duration: 0.4, ease: "easeOut" }}
-            className="group relative w-full max-w-sm rounded-3xl bg-gradient-to-br from-orange-500 to-amber-600 text-white p-8 text-center shadow-2xl shadow-orange-500/30 hover:shadow-2xl hover:shadow-orange-500/50 transition-shadow duration-500 overflow-hidden"
+            className="group relative w-full max-w-sm rounded-3xl bg-linear-to-br from-orange-500 to-amber-600 text-white p-8 text-center shadow-2xl shadow-orange-500/30 hover:shadow-2xl hover:shadow-orange-500/50 transition-shadow duration-500 overflow-hidden"
           >
             
             {/* Decorative glows */}

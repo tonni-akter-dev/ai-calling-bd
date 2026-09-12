@@ -20,7 +20,7 @@ export default function ContactBilling() {
 
   return (
     <section className="py-24 bg-white relative overflow-hidden">
-      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-[400px] w-full max-w-4xl bg-gradient-to-b from-blue-50/50 to-transparent blur-3xl opacity-60" />
+      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 h-100 w-full max-w-4xl bg-linear-to-b from-blue-50/50 to-transparent blur-3xl opacity-60" />
       
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">

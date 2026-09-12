@@ -38,14 +38,8 @@ export default function ProblemSolution() {
                 </li>
               ))}
             </ul>
-
-            <p className="mt-8 font-semibold text-slate-900 bg-slate-50 p-4 rounded-xl border border-slate-100">
-              Your communication system should make your business easier to run
-              — not harder.
-            </p>
           </div>
 
-          {/* Right: Image */}
           <div className="relative">
             <Image
               src={calling}
@@ -54,8 +48,6 @@ export default function ProblemSolution() {
             />
           </div>
         </div>
-
-        {/* ==================== SOLUTION SECTION  ==================== */}
       </div>
         <SolutionSection />
     </section>
