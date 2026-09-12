@@ -5,8 +5,14 @@ import {
   ShieldCheck,
   Hash,
 } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
 
+export const metadata: Metadata = {
+  title: "Corporate IP Number Bangladesh | Business IP Phone | aicall.bd",
+  description:
+    "Get a professional corporate IP number and connect your team through Cloud PBX, extensions, SIP, and supported business calling tools.",
+};
 export default function IPNumberPage() {
   const keyBenefits = [
     "One Official Business Number",

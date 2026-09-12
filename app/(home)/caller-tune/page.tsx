@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import {
   Mic,
-  Play,
   MessageSquare,
   FileText,
   CheckCircle2,
@@ -15,7 +14,13 @@ import {
   BadgeCheck,
   Star,
 } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
+export const metadata: Metadata = {
+  title: "Business Caller Tune & IVR Voice Recording | aicall.bd",
+  description:
+    "Create professional business welcome greetings, IVR announcements, promotional messages, and after-hours voice recordings.",
+};
 
 export default function CallerTunePage() {
   /* ============ WHAT WE CAN CREATE ============ */
@@ -61,30 +66,6 @@ export default function CallerTunePage() {
       title: "Custom Brand Announcement",
       desc: "Any business announcement in a professional voice.",
       bgColor: "bg-cyan-50 text-cyan-600",
-    },
-  ];
-
-  /* ============ SAMPLE RECORDINGS ============ */
-  const sampleRecordings = [
-    {
-      title: "Corporate Welcome",
-      desc: "Professional welcome greeting for businesses",
-      duration: "0:30",
-    },
-    {
-      title: "Customer Service IVR",
-      desc: "IVR menu with department routing options",
-      duration: "0:45",
-    },
-    {
-      title: "Promotional Offer",
-      desc: "Special offer and discount announcement",
-      duration: "0:20",
-    },
-    {
-      title: "After Hours Message",
-      desc: "Office closed / after business hours greeting",
-      duration: "0:25",
     },
   ];
 

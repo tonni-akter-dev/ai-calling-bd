@@ -1,17 +1,20 @@
+import { Metadata } from "next";
 import HeroBanner from "./components/Banner";
 import BenefitsComparison from "./components/BenefitsComparison";
-// import ContactBilling from "./components/ContactBilling";
 import HomeStats from "./components/HomeStats";
 import HowItWorks from "./components/HowItWorks";
 import Industries from "./components/Industries";
 import ProblemSolution from "./components/ProblemSolution";
 import TrustSection from "./components/TrustSection";
-// import StatsSection from "./components/StatsSection";
 import { CtaSection } from "./CtaSection";
 import { FaqSection } from "./FaqSection";
-// import { FeaturesSection } from "./FeaturesSection";
 import { PricingSection } from "./Pricing";
-// import { WhyUsSection } from "./WhyUsSection";
+
+export const metadata: Metadata = {
+  title: "aicall.bd | Cloud PBX & Business Communication Platform in Bangladesh",
+  description:
+    "aicall.bd helps businesses in Bangladesh manage Cloud PBX, business IP numbers, voice campaigns, call recording, customer calls, and communication analytics from one platform.",
+};
 
 export default function Home() {
   return (
@@ -20,12 +23,9 @@ export default function Home() {
       <HomeStats />
       <ProblemSolution />
       <HowItWorks/>
-      {/* <FeaturesSection /> */}
-      {/* <ContactBilling/> */}
       <Industries />
       <BenefitsComparison />
       <TrustSection/>
-      {/* <WhyUsSection /> */}
       <PricingSection />
       <FaqSection />
       <CtaSection />
